@@ -165,9 +165,14 @@ def main(norm_file):
             ########################
             print('=== Connecting to MongoDB ===')
             # Add your details to login to your account in MongoDB
-            username = 'vposligua'
-            password = 'Cualquiercosa8!'
-            host = 'cluster0.z4ynj.mongodb.net/stk?retryWrites=true&w=majority'
+            #username = 'vposligua'
+            #password = 'Cualquiercosa8!'
+            #host = 'cluster0.z4ynj.mongodb.net/stk?retryWrites=true&w=majority'
+
+            username = os.getenv("MONGO_USERNAME")
+            password = os.getenv("MONGO_PASSWORD")
+            host = os.getenv("MONGO_HOST")
+            
             db = 'skutterudites'
             collection = 'experimental'
             print('* Loading database...')
