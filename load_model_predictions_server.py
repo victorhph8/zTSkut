@@ -715,8 +715,8 @@ def main(norm_file):
         ic(all_norm_samples)
         print('--------------------------------------------')
         print('* Collecting normalised samples...')
-        np.save(norm_file, all_norm_samples)
-        print('* Normalised samples saved in normalised_samples.npy NumPy binary file...')
+        #np.save(norm_file, all_norm_samples)
+        #print('* Normalised samples saved in normalised_samples.npy NumPy binary file...')
     else:
         dataset = pd.read_csv(f'raw_descriptors-Phase_2_{target}.csv')
         features = dataset.drop(target, axis=1)
