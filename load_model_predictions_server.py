@@ -19,7 +19,7 @@ from argparse import ArgumentParser
 import os
 from icecream import ic
 
-#ic.disable()
+ic.disable()
 
 ##########################################################
 #### Call Pymongo to collect database saved in MongoDB ####
@@ -778,13 +778,16 @@ if __name__ == "__main__":
     norm_file = args.npy
     preds = main(norm_file=norm_file)'''
 
-from fastapi import FastAPI
+from fastapi import FastAPI, UploadFile, File
 from load_model_predictions_server import main
 
 app = FastAPI()
 
 @app.post("/predict")
-async def predict():
+async def predict(file: UploadFile = File(...)):
+    contents = await file.read()
+    with open("samples_file.csv", "wb") as f:
+        f.write(contents)
     norm_file = 'norm_file.npy'
     preds = main(norm_file)
     return {"predictions": preds}
