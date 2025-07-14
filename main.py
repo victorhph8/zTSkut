@@ -1,7 +1,7 @@
 from fastapi import FastAPI, UploadFile, File
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
-from load_model_predictions_v7 import main
+from load_model_predictions_server import main
 
 app = FastAPI()
 
