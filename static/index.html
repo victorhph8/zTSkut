@@ -53,12 +53,21 @@
     <button type="submit">Submit</button>
   </form>
 
+  <div id="spinner" style="display:none; font-weight: bold; color: #007c91;">
+  ⏳ Predicting zT... Please wait.
+  </div>
+
   <h2>Prediction Result:</h2>
   <pre id="result"></pre>
 
   <script>
+    const spinner = document.getElementById('spinner');
+    const resultBox = document.getElementById('result');
+    
     document.getElementById('zt-form').addEventListener('submit', async (e) => {
       e.preventDefault();
+      spinner.style.display = 'block';
+      resultBox.textContent = ''; // Clear previous result
 
       const form = e.target;
       const formData = new FormData(form);
@@ -68,18 +77,25 @@
 
       const blob = new Blob([csv], { type: 'text/csv' });
       const file = new File([blob], 'samples_file.csv');
-
       const upload = new FormData();
       upload.append('file', file);
 
-      const response = await fetch('/predict', {
-        method: 'POST',
-        body: upload
-      });
+      try {
+        const response = await fetch('/predict', {
+          method: 'POST',
+          body: upload
+        });
 
       const data = await response.json();
       <!-- document.getElementById('result').textContent = JSON.stringify(data, null, 2); -->
-      document.getElementById('result').textContent = `Predicted zT = ${data}`;
+      <!-- document.getElementById('result').textContent = `Predicted zT = ${data}`; -->
+      
+      resultBox.textContent = `Predicted zT = ${data}`;
+    } catch (err) {
+      resultBox.textContent = '⚠️ Error retrieving prediction';
+    } finally {
+      spinner.style.display = 'none';
+    }
     });
   </script>
 </body>
