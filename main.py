@@ -20,5 +20,6 @@ async def predict(file: UploadFile = File(...)):
     with open("samples_file.csv", "wb") as f:
         f.write(contents)
     preds = main("norm_file.npy")
-    return {"predictions": preds}
+    #return {"predictions": preds}
+    return preds[0]
 
