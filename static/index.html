@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>zT Predictor</title>
+</head>
+<body>
+  <h1>Predict zT Value</h1>
+  <form id="zt-form">
+    <fieldset>
+      <legend>Fillers</legend>
+      <input name="f_comp_1" placeholder="Filler 1 composition" required>
+      <input name="f_frac_1" placeholder="Filler 1 fraction" required>
+      <input name="f_comp_2" placeholder="Filler 2 composition" required>
+      <input name="f_frac_2" placeholder="Filler 2 fraction" required>
+      <input name="f_comp_3" placeholder="Filler 3 composition" required>
+      <input name="f_frac_3" placeholder="Filler 3 fraction" required>
+      <input name="f_comp_4" placeholder="Filler 4 composition" required>
+      <input name="f_frac_4" placeholder="Filler 4 fraction" required>
+      <input name="f_comp_5" placeholder="Filler 5 composition" required>
+      <input name="f_frac_5" placeholder="Filler 5 fraction" required>
+    </fieldset>
+
+    <fieldset>
+      <legend>Cations</legend>
+      <input name="c_comp_1" placeholder="Cation 1 composition" required>
+      <input name="c_frac_1" placeholder="Cation 1 fraction" required>
+      <input name="c_comp_2" placeholder="Cation 2 composition" required>
+      <input name="c_frac_2" placeholder="Cation 2 fraction" required>
+      <input name="c_comp_3" placeholder="Cation 3 composition" required>
+      <input name="c_frac_3" placeholder="Cation 3 fraction" required>
+    </fieldset>
+
+    <fieldset>
+      <legend>Anions</legend>
+      <input name="a_comp_1" placeholder="Anion 1 composition" required>
+      <input name="a_frac_1" placeholder="Anion 1 fraction" required>
+      <input name="a_comp_2" placeholder="Anion 2 composition" required>
+      <input name="a_frac_2" placeholder="Anion 2 fraction" required>
+      <input name="a_comp_3" placeholder="Anion 3 composition" required>
+      <input name="a_frac_3" placeholder="Anion 3 fraction" required>
+    </fieldset>
+
+    <fieldset>
+      <legend>Global Parameters</legend>
+      <input name="p_n" placeholder="p_n (0 or 1)" required>
+      <input name="T" placeholder="Temperature (K)" required>
+      <input name="n_300" placeholder="n_300" required>
+    </fieldset>
+
+    <button type="submit">Submit</button>
+  </form>
+
+  <h2>Prediction Result:</h2>
+  <pre id="result"></pre>
+
+  <script>
+    document.getElementById('zt-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const form = e.target;
+      const formData = new FormData(form);
+      const headers = ['a_comp_1', 'a_frac_1', 'a_comp_2', 'a_frac_2', 'a_comp_3', 'a_frac_3', 'c_comp_1', 'c_frac_1', 'c_comp_2', 'c_frac_2', 'c_comp_3', 'c_frac_3', 'f_comp_1', 'f_frac_1', 'f_comp_2', 'f_frac_2', 'f_comp_3', 'f_frac_3', 'f_comp_4', 'f_frac_4', 'f_comp_5', 'f_frac_5', 'n_300', 'T', 'p_n',];
+      const row = headers.map(h => formData.get(h));
+      const csv = headers.join(',') + '\n' + row.join(',');
+
+      const blob = new Blob([csv], { type: 'text/csv' });
+      const file = new File([blob], 'samples_file.csv');
+
+      const upload = new FormData();
+      upload.append('file', file);
+
+      const response = await fetch('/predict', {
+        method: 'POST',
+        body: upload
+      });
+
+      const data = await response.json();
+      document.getElementById('result').textContent = JSON.stringify(data, null, 2);
+    });
+  </script>
+</body>
+</html>
