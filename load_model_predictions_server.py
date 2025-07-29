@@ -19,7 +19,7 @@ from argparse import ArgumentParser
 import os
 from icecream import ic
 
-ic.disable()
+#ic.disable()
 
 ##########################################################
 #### Call Pymongo to collect database saved in MongoDB ####
@@ -117,7 +117,7 @@ def num_fillers(atom):
 
 
 
-def main(norm_file):
+def main(norm_file, input_csv="samples_file.csv"):
     # Definition to copy descriptors extracted from database of unique elements - Moved from original place in 'Keras-NN_V6_Mallos.py'
     def load_unique_descriptors(atom):
         elements = [element.symbol for element in periodictable.elements]
@@ -132,7 +132,7 @@ def main(norm_file):
 
     # Load new data for prediction
     target = 'ZT'
-    read_samples = pd.read_csv('samples_file.csv')
+    read_samples = pd.read_csv(input_csv)
     cols = read_samples.columns
     ic(list(cols))
     read_samples_np = read_samples.to_numpy()
@@ -165,13 +165,13 @@ def main(norm_file):
             ########################
             print('=== Connecting to MongoDB ===')
             # Add your details to login to your account in MongoDB
-            #username = 'vposligua'
-            #password = 'Cualquiercosa8!'
-            #host = 'cluster0.z4ynj.mongodb.net/stk?retryWrites=true&w=majority'
+            username = 'vposligua'
+            password = 'Cualquiercosa8!'
+            host = 'cluster0.z4ynj.mongodb.net/stk?retryWrites=true&w=majority'
 
-            username = os.getenv("MONGO_USERNAME")
-            password = os.getenv("MONGO_PASSWORD")
-            host = os.getenv("MONGO_HOST")
+            #username = os.getenv("MONGO_USERNAME")
+            #password = os.getenv("MONGO_PASSWORD")
+            #host = os.getenv("MONGO_HOST")
             
             db = 'skutterudites'
             collection = 'experimental'
