@@ -4,6 +4,7 @@ from fastapi.responses import FileResponse
 from load_model_predictions_server import main
 import pandas as pd
 import uuid
+import os
 
 app = FastAPI()
 
@@ -23,13 +24,14 @@ async def predict(file: UploadFile = File(...)):
     with open(temp_name, "wb") as f:
     #with open("samples_file.csv", "wb") as f:
         f.write(contents)
-    
+        
     # Enforce 10-row limit
-    df = pd.read_csv("samples_file.csv")
+    df = pd.read_csv(temp_name)
     if len(df) > 10:
         return {"Error": "Maximum 10 systems allowed in CSV upload"}
     
-    preds = main("norm_file.npy")
+    preds = main("norm_file.npy", input_csv=temp_name)
+    os.remove(temp_name)
     return {"predictions": preds}
     #return preds[0]
 
