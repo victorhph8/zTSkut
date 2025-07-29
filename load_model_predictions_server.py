@@ -19,7 +19,7 @@ from argparse import ArgumentParser
 import os
 from icecream import ic
 
-#ic.disable()
+ic.disable()
 
 ##########################################################
 #### Call Pymongo to collect database saved in MongoDB ####
