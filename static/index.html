@@ -102,6 +102,34 @@
 
   <hr>
   <h3>Or upload a CSV file (max 10 systems)</h3>
+  <hr>
+  <h4>CSV Upload Format (Max 10 systems)</h4>
+  <p>Please upload a CSV file with the following header (column names):</p>
+
+  <pre style="background:#f8f8f8; padding:10px; border:1px solid #ccc; overflow:auto;">
+  a_comp_1,a_comp_2,a_comp_3,
+  a_frac_1,a_frac_2,a_frac_3,
+  c_comp_1,c_comp_2,c_comp_3,
+  c_frac_1,c_frac_2,c_frac_3,
+  f_comp_1,f_comp_2,f_comp_3,f_comp_4,f_comp_5,
+  f_frac_1,f_frac_2,f_frac_3,f_frac_4,f_frac_5,
+  n_300,T,p_n,ZT
+  </pre>
+
+  <p><strong>Explanation of each field:</strong></p>
+  <ul>
+    <li><code>a_comp_*</code>, <code>c_comp_*</code>, <code>f_comp_*</code>: Element symbols (e.g. Sb, Co, Ba) for anion, cation, and filler components.</li>
+    <li><code>a_frac_*</code>, <code>c_frac_*</code>, <code>f_frac_*</code>: Corresponding atomic fractions (e.g. 1.0, 0.5).</li>
+    <li><code>n_300</code>: Carrier concentration at 300 K (in cm⁻³).</li>
+    <li><code>T</code>: Temperature (in K).</li>
+    <li><code>p_n</code>: Type of carrier (0 = p-type, 1 = n-type).</li>
+    <li><code>ZT</code>: Dummy value — this field is not used during prediction, but is required for input formatting.</li>
+  </ul>
+
+  <p>You can enter any number for ZT (e.g., 0.0) — it is ignored by the model.</p>
+  <p><a href="/static/sample_template.csv" download>📥 Download CSV Template</a></p>
+
+
   <form id="csvForm">
     <input type="file" name="file" accept=".csv" required />
     <button type="submit">Upload CSV</button>
