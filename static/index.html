@@ -96,7 +96,51 @@
     } finally {
       spinner.style.display = 'none';
     }
+
     });
+  </script>
+
+  <hr>
+  <h3>Or upload a CSV file (max 10 systems)</h3>
+  <form id="csvForm">
+    <input type="file" name="file" accept=".csv" required />
+    <button type="submit">Upload CSV</button>
+  </form>
+
+  <div id="csv-result" style="white-space: pre-wrap; font-weight: bold;"></div>
+
+  <script>
+  document.getElementById('csvForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const formData = new FormData();
+      const fileInput = this.querySelector('input[type="file"]');
+      const file = fileInput.files[0];
+
+      // Check number of rows (header + up to 10 samples)
+      const text = await file.text();
+      const lines = text.trim().split('\n');
+      if (lines.length > 11) {
+          alert("Please upload a CSV with at most 10 systems.");
+          return;
+      }
+
+      formData.append('file', file);
+
+      const resultBox = document.getElementById('csv-result');
+      resultBox.textContent = "⏳ Predicting zT values... Please wait.";
+
+      try {
+          const response = await fetch('/predict', {
+              method: 'POST',
+              body: formData
+          });
+
+          const result = await response.json();
+          resultBox.textContent = "Predicted zT values:\n" + result.predictions.map((z, i) => `System ${i + 1}: ${z.toFixed(4)}`).join('\n');
+      } catch (err) {
+          resultBox.textContent = "⚠️ Error during prediction.";
+      }
+  });
   </script>
 </body>
 </html>
