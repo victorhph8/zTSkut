@@ -74,6 +74,32 @@
       border: 1px solid rgba(159, 45, 32, 0.18);
     }
 
+    .hero-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      margin-top: 22px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .hero-links a {
+      color: var(--accent-dark);
+      background: var(--soft-accent);
+      border: 1px solid rgba(159, 45, 32, 0.18);
+      border-radius: 999px;
+      padding: 8px 14px;
+      text-decoration: none;
+      font-weight: 700;
+      transition: transform 0.15s ease, background 0.15s ease;
+    }
+
+    .hero-links a:hover {
+      transform: translateY(-1px);
+      background: #efd1ca;
+    }
+
     .kicker {
       display: inline-flex;
       align-items: center;
@@ -363,6 +389,13 @@
           A neural-network model for single and batch prediction of thermoelectric performance in skutterudite-based compositions.
           Empty optional fields are automatically treated as 0.
         </p>
+        <div class="hero-links">
+          <a href="https://pubs.rsc.org/en/content/articlelanding/2026/ta/d5ta08841k" target="_blank" rel="noopener noreferrer">
+            Read the paper
+          </a>
+          <span>·</span>
+          <span>JOSS paper in preparation</span>
+        </div>
       </div>
 
       <aside class="side-card">

@@ -346,7 +346,7 @@ def main(input_csv="samples_file.csv"):
 
         num_aver_f_elecneg = np.sum(f_elecneg * f_frac, axis=1) 
         den_sum_f_frac = np.sum(f_frac, axis=1)
-        aver_f_elecneg = np.divide(num_aver_f_elecneg, den_sum_f_frac, out=np.zeros_like(num_aver_f_elecneg), where=den_sum_f_frac != 0) 
+        aver_f_elecneg = np.divide(num_aver_f_elecneg, den_sum_f_frac, out=np.zeros_like(num_aver_f_elecneg, dtype=float), where=den_sum_f_frac != 0) 
         aver_f_elecneg_df = pd.DataFrame(aver_f_elecneg, columns=['aver_f_elecneg']) 
         #ic(aver_f_elecneg_df)
 
@@ -362,7 +362,7 @@ def main(input_csv="samples_file.csv"):
         #ic(dev_c_elecneg_df)
 
         num_dev_f_elecneg = np.sum(f_frac*(f_elecneg-aver_f_elecneg[:, np.newaxis])**2, axis=1)
-        dev_f_elecneg = np.sqrt(num_dev_f_elecneg / den_sum_f_frac, out=np.zeros_like(num_aver_f_elecneg), where=den_sum_f_frac != 0)
+        dev_f_elecneg = np.sqrt(num_dev_f_elecneg / den_sum_f_frac, out=np.zeros_like(num_aver_f_elecneg, dtype=float), where=den_sum_f_frac != 0)
         dev_f_elecneg_df = pd.DataFrame(dev_f_elecneg, columns=['dev_f_elecneg'])
         #ic(dev_f_elecneg_df)
 
@@ -378,7 +378,7 @@ def main(input_csv="samples_file.csv"):
         #ic(aver_c_ip_df)
 
         num_aver_f_ip = np.sum(f_ip * f_frac, axis=1)
-        aver_f_ip = np.divide(num_aver_f_ip, den_sum_f_frac, out=np.zeros_like(num_aver_f_ip), where=den_sum_f_frac != 0) 
+        aver_f_ip = np.divide(num_aver_f_ip, den_sum_f_frac, out=np.zeros_like(num_aver_f_ip, dtype=float), where=den_sum_f_frac != 0) 
         aver_f_ip_df = pd.DataFrame(aver_f_ip, columns=['aver_f_ip'])
         #ic(aver_f_ip_df)
 
@@ -394,7 +394,7 @@ def main(input_csv="samples_file.csv"):
         #ic(dev_c_ip_df)
 
         num_dev_f_ip = np.sum(f_frac*(f_ip-aver_f_ip[:, np.newaxis])**2, axis=1)
-        dev_f_ip = np.sqrt(num_dev_f_ip / den_sum_f_frac, out=np.zeros_like(num_aver_f_ip), where=den_sum_f_frac != 0)
+        dev_f_ip = np.sqrt(num_dev_f_ip / den_sum_f_frac, out=np.zeros_like(num_aver_f_ip, dtype=float), where=den_sum_f_frac != 0)
         dev_f_ip_df = pd.DataFrame(dev_f_ip, columns=['dev_f_ip'])
         #ic(dev_f_ip_df)
 
@@ -410,7 +410,7 @@ def main(input_csv="samples_file.csv"):
         #ic(aver_c_ea_df)
 
         num_aver_f_ea = np.sum(f_ea * f_frac, axis=1)
-        aver_f_ea = np.divide(num_aver_f_ea, den_sum_f_frac, out=np.zeros_like(num_aver_f_ea), where=den_sum_f_frac != 0) 
+        aver_f_ea = np.divide(num_aver_f_ea, den_sum_f_frac, out=np.zeros_like(num_aver_f_ea, dtype=float), where=den_sum_f_frac != 0) 
         aver_f_ea_df = pd.DataFrame(aver_f_ea, columns=['aver_f_ea'])
         #ic(aver_f_ea_df)
 
@@ -426,7 +426,7 @@ def main(input_csv="samples_file.csv"):
         #ic(dev_c_ea_df)
 
         num_dev_f_ea = np.sum(f_frac*(f_ea-aver_f_ea[:, np.newaxis])**2, axis=1)
-        dev_f_ea = np.sqrt(num_dev_f_ea / den_sum_f_frac, out=np.zeros_like(num_aver_f_ea), where=den_sum_f_frac != 0)
+        dev_f_ea = np.sqrt(num_dev_f_ea / den_sum_f_frac, out=np.zeros_like(num_aver_f_ea, dtype=float), where=den_sum_f_frac != 0)
         dev_f_ea_df = pd.DataFrame(dev_f_ea, columns=['dev_f_ea'])
         #ic(dev_f_ea_df)
 
