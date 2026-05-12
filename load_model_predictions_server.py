@@ -133,9 +133,36 @@ def main(input_csv="samples_file.csv"):
     # Load new data for prediction
     target = 'ZT'
     read_samples = pd.read_csv(input_csv)
-    read_samples = read_samples.fillna(0)
+
+    # Ensure target column exists
     if target not in read_samples.columns:
         read_samples[target] = 0.0
+
+    # Treat empty cells as zero first
+    read_samples = read_samples.fillna(0)
+    read_samples = read_samples.replace("", 0)
+
+    # Validate numeric columns
+    fraction_cols = [
+        "a_frac_1", "a_frac_2", "a_frac_3",
+        "c_frac_1", "c_frac_2", "c_frac_3",
+        "f_frac_1", "f_frac_2", "f_frac_3", "f_frac_4", "f_frac_5",
+        "n_300", "T", "p_n", "ZT"
+    ]
+
+    for col in fraction_cols:
+        if col in read_samples.columns:
+            converted = pd.to_numeric(read_samples[col], errors="coerce")
+
+            if converted.isna().any():
+                raise ValueError(
+                    f"Column '{col}' contains non-numeric values. "
+                    "Please use element symbols only in composition fields and numbers only in fraction, n_300, T and p_n fields."
+                )
+
+            read_samples[col] = converted
+
+
     cols = read_samples.columns
     ic(list(cols))
     read_samples_np = read_samples.to_numpy()
