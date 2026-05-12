@@ -221,11 +221,19 @@ def main(input_csv="samples_file.csv"):
         ic(final_extract_descriptors['c_comp_2'])
         ic(final_extract_descriptors['c_frac_2'])
         # Detect nested descriptors
-        sizes_descriptors = final_extract_descriptors.iloc[5].map(lambda x: np.size(x)) # Print size of each element of extract dataframe
+        # Use the first row instead of iloc[5], because web-app users may submit only one system.
+        if len(final_extract_descriptors) == 0:
+            raise ValueError("No descriptors were generated from the input CSV.")
+        
+        sizes_descriptors = final_extract_descriptors.iloc[0].map(lambda x: np.size(x))
         ic(sizes_descriptors)
-        size_descriptors_df = pd.DataFrame(sizes_descriptors.tolist()).pivot_table(columns=list(final_extract_descriptors.columns)) # Dataframe with sizes of arrays to be separated
+        
+        size_descriptors_df = pd.DataFrame(
+            sizes_descriptors.tolist()
+        ).pivot_table(columns=list(final_extract_descriptors.columns))
+        
         ic(size_descriptors_df)
-
+        
         all_nested_descriptors = []
         for i in size_descriptors_df.columns:
             check_sizes_descriptors = size_descriptors_df.loc[lambda df: df[i] > 1] # Creates new dataframe including only the nested query
