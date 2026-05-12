@@ -1,10 +1,9 @@
-from fastapi import FastAPI, UploadFile, File
+from fastapi import FastAPI, UploadFile, File, HTTPException
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
-from load_model_predictions_server import main
-import pandas as pd
-import uuid
+from load_model_predictions_server import main as run_predictions
 import os
+import tempfile
 
 app = FastAPI()
 
@@ -19,19 +18,22 @@ def serve_index():
 # Prediction endpoint
 @app.post("/predict")
 async def predict(file: UploadFile = File(...)):
-    contents = await file.read()
-    temp_name = f"samples_file_{uuid.uuid4().hex}.csv" # Avoid conflicts when more than one user is doing predictions
-    with open(temp_name, "wb") as f:
-    #with open("samples_file.csv", "wb") as f:
-        f.write(contents)
-        
-    # Enforce 10-row limit
-    df = pd.read_csv(temp_name)
-    if len(df) > 10:
-        return {"Error": "Maximum 10 systems allowed in CSV upload"}
-    
-    preds = main("norm_file.npy", input_csv=temp_name)
-    os.remove(temp_name)
-    return {"predictions": preds}
-    #return preds[0]
+    if not file.filename or not file.filename.lower().endswith(".csv"):
+        raise HTTPException(status_code=400, detail="Please upload a CSV file.")
 
+    tmp_path = None
+    try:
+        contents = await file.read()
+        with tempfile.NamedTemporaryFile(delete=False, suffix=".csv") as tmp:
+            tmp.write(contents)
+            tmp_path = tmp.name
+
+        preds = run_predictions(input_csv=tmp_path)
+        return {"predictions": preds, "n_predictions": len(preds)}
+
+    except Exception as exc:
+        raise HTTPException(status_code=500, detail=str(exc))
+
+    finally:
+        if tmp_path and os.path.exists(tmp_path):
+            os.remove(tmp_path)

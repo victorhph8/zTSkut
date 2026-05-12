@@ -87,8 +87,6 @@
         });
 
       const data = await response.json();
-      <!-- document.getElementById('result').textContent = JSON.stringify(data, null, 2); -->
-      <!-- document.getElementById('result').textContent = `Predicted zT = ${data}`; -->
       
       resultBox.textContent = `Predicted zT = ${data.predictions[0].toFixed(4)}`;
     } catch (err) {
@@ -101,9 +99,9 @@
   </script>
 
   <hr>
-  <h3>Or upload a CSV file (max 10 systems)</h3>
+  <h3>Or upload a CSV file for batch prediction</h3>
   <hr>
-  <h4>CSV Upload Format (Max 10 systems)</h4>
+  <h4>CSV Upload Format</h4>
   <p>Please upload a CSV file with the following header (column names):</p>
 
   <pre style="background:#f8f8f8; padding:10px; border:1px solid #ccc; overflow:auto;">
@@ -140,17 +138,10 @@
   <script>
   document.getElementById('csvForm').addEventListener('submit', async function(e) {
       e.preventDefault();
+
       const formData = new FormData();
       const fileInput = this.querySelector('input[type="file"]');
       const file = fileInput.files[0];
-
-      // Check number of rows (header + up to 10 samples)
-      const text = await file.text();
-      const lines = text.trim().split('\n');
-      if (lines.length > 11) {
-          alert("Please upload a CSV with at most 10 systems.");
-          return;
-      }
 
       formData.append('file', file);
 
@@ -164,7 +155,16 @@
           });
 
           const result = await response.json();
-          resultBox.textContent = "Predicted zT values:\n" + result.predictions.map((z, i) => `System ${i + 1}: ${z.toFixed(4)}`).join('\n');
+
+          if (!response.ok) {
+              resultBox.textContent = `⚠️ Error: ${result.detail || "Prediction failed."}`;
+              return;
+          }
+
+          resultBox.textContent =
+              `Predicted zT values for ${result.predictions.length} system(s):\n` +
+              result.predictions.map((z, i) => `System ${i + 1}: ${z.toFixed(4)}`).join('\n');
+
       } catch (err) {
           resultBox.textContent = "⚠️ Error during prediction.";
       }
