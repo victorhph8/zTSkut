@@ -10,6 +10,7 @@ from pymatgen.core.periodic_table import Element
 import periodictable
 import os
 from joblib import load
+from tqdm import tqdm
 from icecream import ic
 
 ic.disable()
