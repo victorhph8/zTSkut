@@ -9,36 +9,36 @@
   <form id="zt-form">
     <fieldset>
       <legend>Fillers</legend>
-      <input name="f_comp_1" placeholder="Filler 1 composition" required>
-      <input name="f_frac_1" placeholder="Filler 1 fraction" required>
-      <input name="f_comp_2" placeholder="Filler 2 composition" required>
-      <input name="f_frac_2" placeholder="Filler 2 fraction" required>
-      <input name="f_comp_3" placeholder="Filler 3 composition" required>
-      <input name="f_frac_3" placeholder="Filler 3 fraction" required>
-      <input name="f_comp_4" placeholder="Filler 4 composition" required>
-      <input name="f_frac_4" placeholder="Filler 4 fraction" required>
-      <input name="f_comp_5" placeholder="Filler 5 composition" required>
-      <input name="f_frac_5" placeholder="Filler 5 fraction" required>
+      <input name="f_comp_1" placeholder="Filler 1 composition">
+      <input name="f_frac_1" placeholder="Filler 1 fraction">
+      <input name="f_comp_2" placeholder="Filler 2 composition">
+      <input name="f_frac_2" placeholder="Filler 2 fraction">
+      <input name="f_comp_3" placeholder="Filler 3 composition">
+      <input name="f_frac_3" placeholder="Filler 3 fraction">
+      <input name="f_comp_4" placeholder="Filler 4 composition">
+      <input name="f_frac_4" placeholder="Filler 4 fraction">
+      <input name="f_comp_5" placeholder="Filler 5 composition">
+      <input name="f_frac_5" placeholder="Filler 5 fraction">
     </fieldset>
 
     <fieldset>
       <legend>Cations</legend>
       <input name="c_comp_1" placeholder="Cation 1 composition" required>
       <input name="c_frac_1" placeholder="Cation 1 fraction" required>
-      <input name="c_comp_2" placeholder="Cation 2 composition" required>
-      <input name="c_frac_2" placeholder="Cation 2 fraction" required>
-      <input name="c_comp_3" placeholder="Cation 3 composition" required>
-      <input name="c_frac_3" placeholder="Cation 3 fraction" required>
+      <input name="c_comp_2" placeholder="Cation 2 composition">
+      <input name="c_frac_2" placeholder="Cation 2 fraction">
+      <input name="c_comp_3" placeholder="Cation 3 composition">
+      <input name="c_frac_3" placeholder="Cation 3 fraction">
     </fieldset>
 
     <fieldset>
       <legend>Anions</legend>
       <input name="a_comp_1" placeholder="Anion 1 composition" required>
       <input name="a_frac_1" placeholder="Anion 1 fraction" required>
-      <input name="a_comp_2" placeholder="Anion 2 composition" required>
-      <input name="a_frac_2" placeholder="Anion 2 fraction" required>
-      <input name="a_comp_3" placeholder="Anion 3 composition" required>
-      <input name="a_frac_3" placeholder="Anion 3 fraction" required>
+      <input name="a_comp_2" placeholder="Anion 2 composition">
+      <input name="a_frac_2" placeholder="Anion 2 fraction">
+      <input name="a_comp_3" placeholder="Anion 3 composition">
+      <input name="a_frac_3" placeholder="Anion 3 fraction">
     </fieldset>
 
     <fieldset>
@@ -72,7 +72,10 @@
       const form = e.target;
       const formData = new FormData(form);
       const headers = ['a_comp_1', 'a_frac_1', 'a_comp_2', 'a_frac_2', 'a_comp_3', 'a_frac_3', 'c_comp_1', 'c_frac_1', 'c_comp_2', 'c_frac_2', 'c_comp_3', 'c_frac_3', 'f_comp_1', 'f_frac_1', 'f_comp_2', 'f_frac_2', 'f_comp_3', 'f_frac_3', 'f_comp_4', 'f_frac_4', 'f_comp_5', 'f_frac_5', 'n_300', 'T', 'p_n', 'ZT'];
-      const row = headers.map(h => formData.get(h));
+      const row = headers.map(h => {
+        const value = formData.get(h);
+        return value === null || value.trim() === "" ? "0" : value.trim();
+      });
       const csv = headers.join(',') + '\n' + row.join(',');
 
       const blob = new Blob([csv], { type: 'text/csv' });
@@ -124,6 +127,7 @@
     <li><code>ZT</code>: Dummy value — this field is not used during prediction, but is required for input formatting.</li>
   </ul>
 
+  <p>Empty fields in the single-system form are automatically treated as 0.</p>
   <p>You can enter any number for ZT (e.g., 0.0) — it is ignored by the model.</p>
   <p><a href="/static/sample_template.csv" download>📥 Download CSV Template</a></p>
 

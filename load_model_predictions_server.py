@@ -133,6 +133,7 @@ def main(input_csv="samples_file.csv"):
     # Load new data for prediction
     target = 'ZT'
     read_samples = pd.read_csv(input_csv)
+    read_samples = read_samples.fillna(0)
     if target not in read_samples.columns:
         read_samples[target] = 0.0
     cols = read_samples.columns
