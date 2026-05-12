@@ -1,83 +1,539 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>zT Predictor</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Skutterudite zT Predictor</title>
+
+  <style>
+    :root {
+      --bg: #f7f3ee;
+      --paper: #fffdf8;
+      --ink: #1f1f1f;
+      --muted: #6f6a64;
+      --line: #ded6cc;
+      --accent: #9f2d20;
+      --accent-dark: #742016;
+      --soft-accent: #f4ded8;
+      --field: #fbfaf7;
+      --shadow: 0 20px 45px rgba(42, 33, 25, 0.08);
+      --radius: 22px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(159, 45, 32, 0.08), transparent 32rem),
+        linear-gradient(135deg, #faf7f2 0%, var(--bg) 100%);
+      color: var(--ink);
+      line-height: 1.5;
+    }
+
+    .page {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 56px 0 72px;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.35fr 0.65fr;
+      gap: 28px;
+      align-items: stretch;
+      margin-bottom: 28px;
+    }
+
+    .hero-card,
+    .side-card,
+    .card {
+      background: rgba(255, 253, 248, 0.92);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-card {
+      padding: 38px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-card::after {
+      content: "";
+      position: absolute;
+      right: -80px;
+      top: -80px;
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      border: 1px solid rgba(159, 45, 32, 0.18);
+    }
+
+    .kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.78rem;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--accent);
+      display: inline-block;
+    }
+
+    h1 {
+      font-size: clamp(2rem, 4vw, 4rem);
+      line-height: 0.98;
+      letter-spacing: -0.05em;
+      margin: 0 0 18px;
+      font-weight: 780;
+    }
+
+    .subtitle {
+      max-width: 720px;
+      color: var(--muted);
+      font-size: 1.05rem;
+      margin: 0;
+    }
+
+    .side-card {
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 220px;
+    }
+
+    .metric {
+      border-top: 1px solid var(--line);
+      padding-top: 16px;
+      margin-top: 16px;
+    }
+
+    .metric:first-child {
+      border-top: none;
+      padding-top: 0;
+      margin-top: 0;
+    }
+
+    .metric-label {
+      color: var(--muted);
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 4px;
+    }
+
+    .metric-value {
+      font-size: 1.25rem;
+      font-weight: 720;
+    }
+
+    .card {
+      padding: 28px;
+      margin-top: 22px;
+    }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 18px;
+    }
+
+    h2 {
+      font-size: 1.35rem;
+      margin: 0;
+      letter-spacing: -0.02em;
+    }
+
+    .hint {
+      color: var(--muted);
+      font-size: 0.92rem;
+      margin: 0 0 22px;
+    }
+
+    form {
+      margin: 0;
+    }
+
+    fieldset {
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 18px;
+      margin: 0 0 16px;
+      background: rgba(255, 255, 255, 0.45);
+    }
+
+    legend {
+      padding: 0 8px;
+      color: var(--accent);
+      font-weight: 700;
+      letter-spacing: 0.03em;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .grid-fillers {
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+    }
+
+    .input-pair {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      padding: 10px;
+      border: 1px solid #eee5dc;
+      border-radius: 14px;
+      background: rgba(255, 253, 248, 0.75);
+    }
+
+    .global-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    input:not([type]),
+    input[type="file"] {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 12px 12px;
+      background: var(--field);
+      color: var(--ink);
+      font-size: 0.94rem;
+      outline: none;
+      transition: border-color 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+    }
+
+    input:focus {
+      border-color: rgba(159, 45, 32, 0.6);
+      box-shadow: 0 0 0 4px rgba(159, 45, 32, 0.09);
+      background: #fff;
+    }
+
+    .actions {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-top: 18px;
+    }
+
+    button,
+    .template-link {
+      border: 0;
+      border-radius: 999px;
+      padding: 12px 20px;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+    }
+
+    button {
+      background: var(--ink);
+      color: white;
+      box-shadow: 0 10px 22px rgba(0, 0, 0, 0.12);
+    }
+
+    button:hover,
+    .template-link:hover {
+      transform: translateY(-1px);
+    }
+
+    .secondary-button {
+      background: var(--accent);
+    }
+
+    .template-link {
+      background: var(--soft-accent);
+      color: var(--accent-dark);
+      border: 1px solid rgba(159, 45, 32, 0.18);
+    }
+
+    .result {
+      margin-top: 18px;
+      background: #111;
+      color: #fffaf2;
+      border-radius: 16px;
+      padding: 18px;
+      min-height: 58px;
+      white-space: pre-wrap;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-size: 0.95rem;
+    }
+
+    .spinner {
+      display: none;
+      margin-top: 14px;
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
+      align-items: start;
+    }
+
+    .code-block {
+      background: #171412;
+      color: #f8efe6;
+      border-radius: 16px;
+      padding: 18px;
+      overflow: auto;
+      font-size: 0.82rem;
+      line-height: 1.55;
+      border: 1px solid #2d2721;
+    }
+
+    .notes {
+      color: var(--muted);
+      font-size: 0.92rem;
+      margin: 14px 0 0;
+    }
+
+    .notes code {
+      color: var(--accent-dark);
+      background: var(--soft-accent);
+      padding: 2px 5px;
+      border-radius: 6px;
+    }
+
+    footer {
+      color: var(--muted);
+      text-align: center;
+      font-size: 0.86rem;
+      padding-top: 28px;
+    }
+
+    @media (max-width: 880px) {
+      .hero,
+      .two-col {
+        grid-template-columns: 1fr;
+      }
+
+      .grid,
+      .grid-fillers,
+      .global-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-card {
+        padding: 28px;
+      }
+    }
+  </style>
 </head>
+
 <body>
-  <h1>Predict zT Value</h1>
-  <form id="zt-form">
-    <fieldset>
-      <legend>Fillers</legend>
-      <input name="f_comp_1" placeholder="Filler 1 composition">
-      <input name="f_frac_1" placeholder="Filler 1 fraction">
-      <input name="f_comp_2" placeholder="Filler 2 composition">
-      <input name="f_frac_2" placeholder="Filler 2 fraction">
-      <input name="f_comp_3" placeholder="Filler 3 composition">
-      <input name="f_frac_3" placeholder="Filler 3 fraction">
-      <input name="f_comp_4" placeholder="Filler 4 composition">
-      <input name="f_frac_4" placeholder="Filler 4 fraction">
-      <input name="f_comp_5" placeholder="Filler 5 composition">
-      <input name="f_frac_5" placeholder="Filler 5 fraction">
-    </fieldset>
+  <main class="page">
+    <section class="hero">
+      <div class="hero-card">
+        <div class="kicker"><span class="dot"></span> Skutterudite ML model</div>
+        <h1>Predict zT for skutterudite systems</h1>
+        <p class="subtitle">
+          A neural-network model for single and batch prediction of thermoelectric performance in skutterudite-based compositions.
+          Empty optional fields are automatically treated as 0.
+        </p>
+      </div>
 
-    <fieldset>
-      <legend>Cations</legend>
-      <input name="c_comp_1" placeholder="Cation 1 composition" required>
-      <input name="c_frac_1" placeholder="Cation 1 fraction" required>
-      <input name="c_comp_2" placeholder="Cation 2 composition">
-      <input name="c_frac_2" placeholder="Cation 2 fraction">
-      <input name="c_comp_3" placeholder="Cation 3 composition">
-      <input name="c_frac_3" placeholder="Cation 3 fraction">
-    </fieldset>
+      <aside class="side-card">
+        <div class="metric">
+          <div class="metric-label">Validation</div>
+          <div class="metric-value">RMSE 0.068 · R² 0.947</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">External test</div>
+          <div class="metric-value">RMSE 0.156 · R² 0.836</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">Input modes</div>
+          <div class="metric-value">Single · Batch CSV</div>
+        </div>
+      </aside>
+    </section>
 
-    <fieldset>
-      <legend>Anions</legend>
-      <input name="a_comp_1" placeholder="Anion 1 composition" required>
-      <input name="a_frac_1" placeholder="Anion 1 fraction" required>
-      <input name="a_comp_2" placeholder="Anion 2 composition">
-      <input name="a_frac_2" placeholder="Anion 2 fraction">
-      <input name="a_comp_3" placeholder="Anion 3 composition">
-      <input name="a_frac_3" placeholder="Anion 3 fraction">
-    </fieldset>
+    <section class="card">
+      <div class="section-title">
+        <h2>Single-system prediction</h2>
+      </div>
+      <p class="hint">Enter the composition, carrier concentration, temperature and carrier type. Leave unused composition/fraction boxes empty.</p>
 
-    <fieldset>
-      <legend>Global Parameters</legend>
-      <input name="p_n" placeholder="p_n (0 or 1)" required>
-      <input name="T" placeholder="Temperature (K)" required>
-      <input name="n_300" placeholder="n_300" required>
-    </fieldset>
+      <form id="zt-form">
+        <fieldset>
+          <legend>Fillers</legend>
+          <div class="grid grid-fillers">
+            <div class="input-pair">
+              <input name="f_comp_1" placeholder="Filler 1" />
+              <input name="f_frac_1" placeholder="Frac. 1" />
+            </div>
+            <div class="input-pair">
+              <input name="f_comp_2" placeholder="Filler 2" />
+              <input name="f_frac_2" placeholder="Frac. 2" />
+            </div>
+            <div class="input-pair">
+              <input name="f_comp_3" placeholder="Filler 3" />
+              <input name="f_frac_3" placeholder="Frac. 3" />
+            </div>
+            <div class="input-pair">
+              <input name="f_comp_4" placeholder="Filler 4" />
+              <input name="f_frac_4" placeholder="Frac. 4" />
+            </div>
+            <div class="input-pair">
+              <input name="f_comp_5" placeholder="Filler 5" />
+              <input name="f_frac_5" placeholder="Frac. 5" />
+            </div>
+          </div>
+        </fieldset>
 
-    <input type="hidden" name="ZT" value="0.000">
+        <fieldset>
+          <legend>Cations</legend>
+          <div class="grid">
+            <div class="input-pair">
+              <input name="c_comp_1" placeholder="Cation 1" required />
+              <input name="c_frac_1" placeholder="Frac. 1" required />
+            </div>
+            <div class="input-pair">
+              <input name="c_comp_2" placeholder="Cation 2" />
+              <input name="c_frac_2" placeholder="Frac. 2" />
+            </div>
+            <div class="input-pair">
+              <input name="c_comp_3" placeholder="Cation 3" />
+              <input name="c_frac_3" placeholder="Frac. 3" />
+            </div>
+          </div>
+        </fieldset>
 
-    <button type="submit">Submit</button>
-  </form>
+        <fieldset>
+          <legend>Anions</legend>
+          <div class="grid">
+            <div class="input-pair">
+              <input name="a_comp_1" placeholder="Anion 1" required />
+              <input name="a_frac_1" placeholder="Frac. 1" required />
+            </div>
+            <div class="input-pair">
+              <input name="a_comp_2" placeholder="Anion 2" />
+              <input name="a_frac_2" placeholder="Frac. 2" />
+            </div>
+            <div class="input-pair">
+              <input name="a_comp_3" placeholder="Anion 3" />
+              <input name="a_frac_3" placeholder="Frac. 3" />
+            </div>
+          </div>
+        </fieldset>
 
-  <p>Empty fields in the single-system form are automatically treated as 0.</p>
+        <fieldset>
+          <legend>Global parameters</legend>
+          <div class="global-grid">
+            <input name="p_n" placeholder="p_n: 0 = p-type, 1 = n-type" required />
+            <input name="T" placeholder="Temperature (K)" required />
+            <input name="n_300" placeholder="n_300 (cm⁻³)" required />
+          </div>
+        </fieldset>
 
-  <div id="spinner" style="display:none; font-weight: bold; color: #007c91;">
-  ⏳ Predicting zT... Please wait.
-  </div>
+        <input type="hidden" name="ZT" value="0.000" />
 
-  <h2>Prediction Result:</h2>
-  <pre id="result"></pre>
+        <div class="actions">
+          <button type="submit">Predict zT</button>
+          <span id="spinner" class="spinner">⏳ Predicting zT... Please wait.</span>
+        </div>
+      </form>
+
+      <pre id="result" class="result">Prediction result will appear here.</pre>
+    </section>
+
+    <section class="card">
+      <div class="section-title">
+        <h2>Batch prediction</h2>
+        <a class="template-link" href="/static/sample_template.csv" download>Download CSV template</a>
+      </div>
+      <p class="hint">Upload a CSV file to predict zT for multiple skutterudite candidates in one run.</p>
+
+      <div class="two-col">
+        <div>
+          <form id="csvForm">
+            <input type="file" name="file" accept=".csv" required />
+            <div class="actions">
+              <button class="secondary-button" type="submit">Upload CSV and predict</button>
+            </div>
+          </form>
+
+          <pre id="csv-result" class="result">Batch prediction results will appear here.</pre>
+        </div>
+
+        <div>
+          <p class="notes"><strong>CSV header format</strong></p>
+          <pre class="code-block">a_comp_1,a_frac_1,a_comp_2,a_frac_2,a_comp_3,a_frac_3,
+c_comp_1,c_frac_1,c_comp_2,c_frac_2,c_comp_3,c_frac_3,
+f_comp_1,f_frac_1,f_comp_2,f_frac_2,f_comp_3,f_frac_3,
+f_comp_4,f_frac_4,f_comp_5,f_frac_5,
+n_300,T,p_n,ZT</pre>
+
+          <p class="notes">
+            <code>p_n</code>: 0 = p-type, 1 = n-type. <code>ZT</code> is a dummy column required for input formatting and is ignored by the model.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      Skutterudite zT predictor · Neural-network model for thermoelectric screening
+    </footer>
+  </main>
 
   <script>
     const spinner = document.getElementById('spinner');
     const resultBox = document.getElementById('result');
-    
+
     document.getElementById('zt-form').addEventListener('submit', async (e) => {
       e.preventDefault();
-      spinner.style.display = 'block';
-      resultBox.textContent = ''; // Clear previous result
+      spinner.style.display = 'inline-flex';
+      resultBox.textContent = '';
 
       const form = e.target;
       const formData = new FormData(form);
-      const headers = ['a_comp_1', 'a_frac_1', 'a_comp_2', 'a_frac_2', 'a_comp_3', 'a_frac_3', 'c_comp_1', 'c_frac_1', 'c_comp_2', 'c_frac_2', 'c_comp_3', 'c_frac_3', 'f_comp_1', 'f_frac_1', 'f_comp_2', 'f_frac_2', 'f_comp_3', 'f_frac_3', 'f_comp_4', 'f_frac_4', 'f_comp_5', 'f_frac_5', 'n_300', 'T', 'p_n', 'ZT'];
+
+      const headers = [
+        'a_comp_1', 'a_frac_1', 'a_comp_2', 'a_frac_2', 'a_comp_3', 'a_frac_3',
+        'c_comp_1', 'c_frac_1', 'c_comp_2', 'c_frac_2', 'c_comp_3', 'c_frac_3',
+        'f_comp_1', 'f_frac_1', 'f_comp_2', 'f_frac_2', 'f_comp_3', 'f_frac_3',
+        'f_comp_4', 'f_frac_4', 'f_comp_5', 'f_frac_5',
+        'n_300', 'T', 'p_n', 'ZT'
+      ];
+
       const row = headers.map(h => {
         const value = formData.get(h);
-        return value === null || value.trim() === "" ? "0" : value.trim();
+        return value === null || String(value).trim() === "" ? "0" : String(value).trim();
       });
+
       const csv = headers.join(',') + '\n' + row.join(',');
 
       const blob = new Blob([csv], { type: 'text/csv' });
@@ -91,57 +547,22 @@
           body: upload
         });
 
-      const data = await response.json();
-      
-      resultBox.textContent = `Predicted zT = ${data.predictions[0].toFixed(4)}`;
-    } catch (err) {
-      resultBox.textContent = '⚠️ Error retrieving prediction';
-    } finally {
-      spinner.style.display = 'none';
-    }
+        const data = await response.json();
 
+        if (!response.ok) {
+          resultBox.textContent = `⚠️ Error: ${data.detail || "Prediction failed."}`;
+          return;
+        }
+
+        resultBox.textContent = `Predicted zT = ${data.predictions[0].toFixed(4)}`;
+      } catch (err) {
+        resultBox.textContent = '⚠️ Error retrieving prediction.';
+      } finally {
+        spinner.style.display = 'none';
+      }
     });
-  </script>
 
-  <hr>
-  <h3>Or upload a CSV file for batch prediction</h3>
-  <hr>
-  <h4>CSV Upload Format</h4>
-  <p>Please upload a CSV file with the following header (column names):</p>
-
-  <pre style="background:#f8f8f8; padding:10px; border:1px solid #ccc; overflow:auto;">
-  a_comp_1,a_comp_2,a_comp_3,
-  a_frac_1,a_frac_2,a_frac_3,
-  c_comp_1,c_comp_2,c_comp_3,
-  c_frac_1,c_frac_2,c_frac_3,
-  f_comp_1,f_comp_2,f_comp_3,f_comp_4,f_comp_5,
-  f_frac_1,f_frac_2,f_frac_3,f_frac_4,f_frac_5,
-  n_300,T,p_n,ZT
-  </pre>
-
-  <p><strong>Explanation of each field:</strong></p>
-  <ul>
-    <li><code>a_comp_*</code>, <code>c_comp_*</code>, <code>f_comp_*</code>: Element symbols (e.g. Sb, Co, Ba) for anion, cation, and filler components.</li>
-    <li><code>a_frac_*</code>, <code>c_frac_*</code>, <code>f_frac_*</code>: Corresponding atomic fractions (e.g. 1.0, 0.5).</li>
-    <li><code>n_300</code>: Carrier concentration at 300 K (in cm⁻³).</li>
-    <li><code>T</code>: Temperature (in K).</li>
-    <li><code>p_n</code>: Type of carrier (0 = p-type, 1 = n-type).</li>
-    <li><code>ZT</code>: Dummy value — this field is not used during prediction, but is required for input formatting.</li>
-  </ul>
-
-  <p>You can enter any number for ZT (e.g., 0.0) — it is ignored by the model.</p>
-  <p><a href="/static/sample_template.csv" download>📥 Download CSV Template</a></p>
-
-
-  <form id="csvForm">
-    <input type="file" name="file" accept=".csv" required />
-    <button type="submit">Upload CSV</button>
-  </form>
-
-  <div id="csv-result" style="white-space: pre-wrap; font-weight: bold;"></div>
-
-  <script>
-  document.getElementById('csvForm').addEventListener('submit', async function(e) {
+    document.getElementById('csvForm').addEventListener('submit', async function(e) {
       e.preventDefault();
 
       const formData = new FormData();
@@ -154,26 +575,26 @@
       resultBox.textContent = "⏳ Predicting zT values... Please wait.";
 
       try {
-          const response = await fetch('/predict', {
-              method: 'POST',
-              body: formData
-          });
+        const response = await fetch('/predict', {
+          method: 'POST',
+          body: formData
+        });
 
-          const result = await response.json();
+        const result = await response.json();
 
-          if (!response.ok) {
-              resultBox.textContent = `⚠️ Error: ${result.detail || "Prediction failed."}`;
-              return;
-          }
+        if (!response.ok) {
+          resultBox.textContent = `⚠️ Error: ${result.detail || "Prediction failed."}`;
+          return;
+        }
 
-          resultBox.textContent =
-              `Predicted zT values for ${result.predictions.length} system(s):\n` +
-              result.predictions.map((z, i) => `System ${i + 1}: ${z.toFixed(4)}`).join('\n');
+        resultBox.textContent =
+          `Predicted zT values for ${result.predictions.length} system(s):\n` +
+          result.predictions.map((z, i) => `System ${i + 1}: ${z.toFixed(4)}`).join('\n');
 
       } catch (err) {
-          resultBox.textContent = "⚠️ Error during prediction.";
+        resultBox.textContent = "⚠️ Error during prediction.";
       }
-  });
+    });
   </script>
 </body>
 </html>
