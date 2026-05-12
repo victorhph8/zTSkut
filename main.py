@@ -32,6 +32,8 @@ async def predict(file: UploadFile = File(...)):
         return {"predictions": preds, "n_predictions": len(preds)}
 
     except Exception as exc:
+        import traceback
+        traceback.print_exc()
         raise HTTPException(status_code=500, detail=str(exc))
 
     finally:
