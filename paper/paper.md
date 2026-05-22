@@ -50,7 +50,7 @@ bibliography: paper.bib
 
 # Summary
 
-zTSkut is a Python-based web application for predicting the thermoelectric figure of merit, zT, of skutterudite-based compositions. The software provides a browser interface for single-composition prediction and a CSV-upload workflow for batch screening. Users specify the anion, cation and filler species, their corresponding fractions, carrier concentration at 300 K, temperature, and carrier type. zTSkut then generates the same compositional descriptors used by the trained neural-network model, applies the saved feature scaling from the original training workflow, and returns predicted zT values.
+zTSkut is a Python-based web application for predicting the thermoelectric figure of merit, zT, of skutterudite-based compositions. The software provides a browser interface for single-composition prediction and a CSV-upload workflow for batch screening. Users specify the anion, cation and filler species, their corresponding fractions, carrier concentration at 300 K, temperature and carrier type. zTSkut then generates the same compositional descriptors used by the trained neural-network model, applies the saved feature scaling from the original training workflow and returns predicted zT values.
 
 The software is built around a FastAPI backend and a lightweight HTML/JavaScript frontend. The backend loads a trained Keras model, a saved `StandardScaler`, and the descriptor order expected by the model. This design makes the prediction workflow reproducible: features are transformed using the original training scaler in transform-only mode, and no fitting or re-normalisation is performed during user prediction. zTSkut also supports input validation to catch common formatting errors, such as placing element symbols in numerical fraction fields.
 
@@ -64,16 +64,16 @@ zTSkut addresses this need by exposing a trained skutterudite zT model through a
 
 The current implementation provides the following functionality:
 
-- single-system prediction through a browser form;
-- batch prediction from CSV files;
-- automatic treatment of empty optional composition and fraction fields as zero;
-- generation of the compositional descriptor set expected by the trained model;
-- application of the saved training scaler and fixed feature order;
-- input validation for numerical fields such as fractions, temperature, carrier concentration and carrier type;
-- downloadable citation files for users of the model;
-- local execution through FastAPI as well as deployment as a web app.
+- Single-system prediction through a browser form
+- Batch prediction from CSV files
+- Automatic treatment of empty optional composition and fraction fields as zero
+- Generation of the compositional descriptor set expected by the trained model
+- Application of the saved training scaler and fixed feature order
+- Input validation for numerical fields such as fractions, temperature, carrier concentration and carrier type
+- Downloadable citation files for users of the model
+- Local execution through FastAPI as well as deployment as a web app
 
-The main user-facing workflow is intentionally simple. For single predictions, users fill in the composition fields and submit the form. For batch predictions, users download the CSV template, add one candidate composition per row, and upload the completed file. The app returns one predicted zT value per row.
+The main user-facing workflow is intentionally simple. For single predictions, users fill in the composition fields and submit the form. For batch predictions, users download the CSV template, add one candidate composition per row and upload the completed file. The app returns one predicted zT value per row.
 
 # Implementation
 
