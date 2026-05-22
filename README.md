@@ -2,7 +2,7 @@
 
 **zTSkut** is a web application for predicting the thermoelectric figure of merit (**zT**) of skutterudite-based compositions using the neural-network model reported in:
 
-> Victor Posligua et al., *Deep learning framework for accurate prediction and high-throughput search of the thermoelectric figure of merit in skutterudites*, **Journal of Materials Chemistry A**, 2026. DOI: [10.1039/D5TA08841K](https://doi.org/10.1039/D5TA08841K)
+> V. Posligua, K. Landivar, E. R. Remesal, G. Rogl, P. F. Rogl, J. F. Sanz, J. Prado-Gonjal, A. M. Marquez, J. J. Plata , *Deep learning framework for accurate prediction and high-throughput search of the thermoelectric figure of merit in skutterudites*, **Journal of Materials Chemistry A**, 2026. DOI: [10.1039/D5TA08841K](https://doi.org/10.1039/D5TA08841K)
 
 The app supports both single-composition prediction through a browser form and batch prediction from CSV files.
 
