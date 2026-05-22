@@ -249,7 +249,7 @@ Predictions should be interpreted with caution for:
 
 - Compositions far outside the chemistry represented in the training data
 - Unusual carrier concentrations or temperatures outside the studied range
-- Yystems affected by secondary phases, phase segregation or unusual processing routes
+- Systems affected by secondary phases, phase segregation or unusual processing routes
 - Very high-zT systems beyond the range well represented in the training dataset
 
 The tool is intended to guide candidate selection and screening, not to replace experimental validation.
