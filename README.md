@@ -176,6 +176,18 @@ uvicorn main:app --host 0.0.0.0 --port $PORT
 
 ---
 
+## Running tests
+
+Basic tests are provided to check that the web app loads correctly, the prediction endpoint works with a valid CSV file, and invalid numerical inputs are handled properly.
+
+From the repository root, run:
+
+```bash
+python -m pytest tests/*.py
+```
+
+---
+
 ## Required model files
 
 The following files must be present in the repository root for predictions to work:
