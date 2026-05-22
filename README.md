@@ -1,5 +1,3 @@
-# zTSkut
-
 <div align="center">
 
 # zTSkut
