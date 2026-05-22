@@ -61,10 +61,6 @@ uvicorn main:app --reload
 
 zTSkut is intended as a screening and prioritisation tool. Predictions should be interpreted within the chemical and thermoelectric domain represented by the model-development dataset. In particular, predictions for compositions far outside the training chemistry, unusual carrier concentrations or temperatures, systems affected by secondary phases, or very high-zT regimes should be treated with caution and validated experimentally or with higher-fidelity calculations.
 
-# Generative AI disclosure
-
-Generative AI tools were used to assist with code refactoring, documentation drafting, and manuscript editing. All software design decisions, scientific content, code validation, and final text were reviewed and approved by the author.
-
 # Acknowledgements
 
-The trained model used by zTSkut was developed as part of the skutterudite thermoelectrics study reported by Posligua et al. [@posligua2026skutterudites]. The author thanks the coauthors of that work for the scientific collaboration underlying the model and dataset.
+The trained model used by zTSkut was developed as part of the skutterudite thermoelectrics study reported by Posligua et al. [@posligua2026skutterudites]. Do we need to add the same acknowledgements like in the main paper?
