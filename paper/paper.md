@@ -9,11 +9,41 @@ tags:
   - FastAPI
 authors:
   - name: Victor Posligua
+    orcid: 0000-0003-3375-3706
+    affiliation: 1
+    corresponding: true
+  - name: Karina Landivar
+    orcid: 0009-0007-0160-1448
+    affiliation: 1
+  - name: Elena R. Remesal
+    orcid: 0000-0001-6984-0647
+    affiliation: 1
+  - name: Gerda Rogl
+    orcid: 0000-0002-8056-5006
+    affiliation: 2
+  - name: Peter F. Rogl
+    orcid: 0000-0002-7733-1612
+    affiliation: 2
+  - name: Javier Fdez Sanz
+    orcid: 0000-0003-2064-7007
+    affiliation: 1
+  - name: Jesus Prado-Gonjal
+    orcid: 0000-0003-4880-8503
+    affiliation: 3
+  - name: Antonio M. Marquéz
+    orcid: 0000-0001-6699-064X
+    affiliation: 1
+  - name: Jose J. Plata
+    orcid: 0000-0002-0859-0450
     affiliation: 1
     corresponding: true
 affiliations:
-  - name: Institute for Functional Intelligent Materials, National University of Singapore, Singapore
+  - name: Departamento de Química Física, Facultad de Química, Universidad de Sevilla, Seville, Spain
     index: 1
+  - name: Institute of Materials Chemistry, University of Vienna, Waehringerstraße 42, Wien, Austria
+    index: 2
+  - name: Departamento de Química Inorgánica, Universidad Complutense de Madrid, Madrid, Spain
+    index: 3
 date: 22 May 2026
 bibliography: paper.bib
 ---
