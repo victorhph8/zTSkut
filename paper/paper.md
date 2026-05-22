@@ -5,7 +5,7 @@ tags:
   - thermoelectrics
   - skutterudites
   - machine learning
-  - materials informatics
+  - deep learning
   - FastAPI
 authors:
   - name: Victor Posligua
