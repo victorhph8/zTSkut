@@ -113,7 +113,7 @@ zTSkut is intended as a screening and prioritisation tool. Predictions should be
 
 # AI usage disclosure
 
-No AI tools were used to assist with the code and web app. All scientific content, software behaviour, tests and final text were reviewed, edited, and validated by the authors. The trained model, dataset, scientific interpretation, and research conclusions are based on the peer-reviewed work by Posligua et al. [@posligua2026skutterudites].
+No AI tools were used to assist with the code and web app. All scientific content, software behaviour, tests and final text were reviewed, edited and validated by the authors. The trained model, dataset, scientific interpretation, and research conclusions are based on the peer-reviewed work by Posligua et al. [@posligua2026skutterudites].
 
 # Acknowledgements
 
