@@ -234,7 +234,7 @@ The tool is intended to guide candidate selection and screening, not to replace 
 
 ## License
 
-A license should be included before public release. MIT is a suitable option if the goal is to make the web app broadly reusable.
+License information will be added before public release.
 
 ---
 
