@@ -65,6 +65,7 @@ examples/
   example_batch.csv
 
 tests/
+  test_app_health.py
   test_input_validation.py
   test_prediction_endpoint.py
 
