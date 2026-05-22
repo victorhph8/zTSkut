@@ -13,3 +13,4 @@ periodictable==2.0.2
 icecream==2.1.3
 h5py==3.12.1
 tqdm==4.67.1
+pytest==9.0.3
