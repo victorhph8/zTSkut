@@ -178,7 +178,7 @@ uvicorn main:app --host 0.0.0.0 --port $PORT
 
 ## Running tests
 
-Basic tests are provided to check that the web app loads correctly, the prediction endpoint works with a valid CSV file, and invalid numerical inputs are handled properly.
+Basic tests are provided to check that the web app loads correctly, the prediction endpoint works with a valid CSV file and invalid numerical inputs are handled properly.
 
 From the repository root, run:
 
@@ -198,7 +198,7 @@ scaler_ZT.joblib
 feature_columns_ZT.txt
 ```
 
-These files define the trained model, the saved feature scaler, and the descriptor order expected by the neural network.
+These files define the trained model, the saved feature scaler and the descriptor order expected by the neural network.
 
 ---
 
@@ -247,10 +247,10 @@ zTSkut is designed for skutterudite-based thermoelectric compositions within the
 
 Predictions should be interpreted with caution for:
 
-- compositions far outside the chemistry represented in the training data,
-- unusual carrier concentrations or temperatures outside the studied range,
-- systems affected by secondary phases, phase segregation or unusual processing routes,
-- very high-zT systems beyond the range well represented in the training dataset.
+- Compositions far outside the chemistry represented in the training data
+- Unusual carrier concentrations or temperatures outside the studied range
+- Yystems affected by secondary phases, phase segregation or unusual processing routes
+- Very high-zT systems beyond the range well represented in the training dataset
 
 The tool is intended to guide candidate selection and screening, not to replace experimental validation.
 
