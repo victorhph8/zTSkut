@@ -1,5 +1,27 @@
 # zTSkut
 
+<div align="center">
+
+# zTSkut
+
+### A web app for machine-learning prediction of zT in skutterudites
+
+[![Web App](https://img.shields.io/badge/web%20app-live-2ea44f)](https://ztskut.onrender.com/)
+[![Paper](https://img.shields.io/badge/paper-JMCA-blue)](https://pubs.rsc.org/en/content/articlelanding/2026/ta/d5ta08841k)
+[![DOI](https://img.shields.io/badge/DOI-10.1039%2FD5TA08841K-orange)](https://doi.org/10.1039/D5TA08841K)
+[![Python](https://img.shields.io/badge/python-3.12-blue)]()
+[![FastAPI](https://img.shields.io/badge/FastAPI-backend-009688)]()
+[![License](https://img.shields.io/badge/license-MIT-lightgrey)]()
+
+</div>
+
+**zTSkut** is a web application for predicting the thermoelectric figure of merit (**zT**) of skutterudite-based compositions using the neural-network model reported in our Journal of Materials Chemistry A paper.
+
+The app supports both **single-composition prediction** through a browser form and **batch prediction** from CSV files, making the model accessible for rapid screening of candidate skutterudite materials.
+
+**Links:** [Web app](https://ztskut.onrender.com/) | [Paper](https://pubs.rsc.org/en/content/articlelanding/2026/ta/d5ta08841k) | [Citation](#citation)
+
+
 **zTSkut** is a web application for predicting the thermoelectric figure of merit (**zT**) of skutterudite-based compositions using the neural-network model reported in:
 
 > V. Posligua, K. Landivar, E. R. Remesal, G. Rogl, P. F. Rogl, J. F. Sanz, J. Prado-Gonjal, A. M. Marquez, J. J. Plata , *Deep learning framework for accurate prediction and high-throughput search of the thermoelectric figure of merit in skutterudites*, **Journal of Materials Chemistry A**, 2026. DOI: [10.1039/D5TA08841K](https://doi.org/10.1039/D5TA08841K)
