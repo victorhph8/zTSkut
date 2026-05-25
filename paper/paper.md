@@ -66,7 +66,7 @@ Several ML models have been developed for thermoelectric materials, including mo
 
 General purpose ML platforms and Python libraries such as TensorFlow/Keras [@tensorflow; @keras] and scikit-learn [@scikit-learn] provide the underlying infrastructure for training and deploying models, but they do not provide a domain-specific interface for skutterudite zT prediction. Similarly, web frameworks such as FastAPI [@fastapi] make deployment possible, but they do not encode the thermoelectric descriptor logic, saved model artefacts or input conventions required for this specific skutterudite predictor.
 
-zTSkut therefore fills a focused gap: it packages the trained skutterudite model from Posligua et al. [@posligua2026skutterudites] into a reproducible and user-facing prediction tool. Rather than contributing to a general platform, zTSkut was built as a lightweight dedicated application because the model requires a specific descriptor representation, fixed feature order and saved training scaler to ensure consistency with the peer-reviewed workflow. This narrow scope is intentional: it keeps the tool easy to use, easy to deploy and directly aligned with the skutterudite screening problem.
+zTSkut therefore fills a focused gap: it packages the trained skutterudite model [@posligua2026skutterudites] into a reproducible and user-facing prediction tool. Rather than contributing to a general platform, zTSkut was built as a lightweight dedicated application because the model requires a specific descriptor representation, fixed feature order and saved training scaler to ensure consistency with the peer-reviewed workflow. This narrow scope is intentional: it keeps the tool easy to use, easy to deploy and directly aligned with the skutterudite screening problem.
 
 # Software design
 
@@ -107,7 +107,7 @@ zTSkut is intended as a screening and prioritisation tool. Predictions should be
 
 # AI usage disclosure
 
-No AI tools were used to assist with the code and web app. All scientific content, software behaviour, tests and final text were reviewed, edited and validated by the authors. The trained model, dataset, scientific interpretation and research conclusions are based on the peer-reviewed work by Posligua et al. [@posligua2026skutterudites].
+No AI tools were used to assist with the code and web app. All scientific content, software behaviour, tests and final text were reviewed, edited and validated by the authors. The trained model, dataset, scientific interpretation and research conclusions are based on the peer-reviewed work [@posligua2026skutterudites].
 
 # Acknowledgements
 
