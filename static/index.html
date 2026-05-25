@@ -58,6 +58,18 @@
       display: block;
     }
 
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
     .hero-card,
     .side-card,
     .card {
@@ -429,9 +441,11 @@
   <main class="page">
     <section class="hero">
       <div class="hero-card">
-          <div class="logo-wrap">
-            <img src="/static/ztskut_logo.png" alt="zTSkut logo">
-          </div>
+        <div class="logo-wrap">
+          <img src="/static/ztskut_logo.png" alt="zTSkut logo">
+        </div>
+
+        <h1 class="sr-only">zTSkut: Predict zT for skutterudite systems</h1>
 
         <p class="subtitle">
           A neural-network model for single and batch prediction of thermoelectric performance in skutterudite-based compositions.
