@@ -209,7 +209,7 @@ Example input files are provided in the `examples/` folder:
 ```text
 examples/example_single.csv
 examples/example_batch.csv
-
+```
 ---
 
 ## Error handling
