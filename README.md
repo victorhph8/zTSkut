@@ -139,7 +139,7 @@ The predicted zT value will appear directly on the page.
 Clone the repository and install the dependencies:
 
 ```bash
-git clone https://github.com/<your-username>/zTSkut.git
+git clone https://github.com/victorhph8/zTSkut.git
 cd zTSkut
 python -m venv .venv
 source .venv/bin/activate
@@ -183,7 +183,7 @@ Basic tests are provided to check that the web app loads correctly, the predicti
 From the repository root, run:
 
 ```bash
-python -m pytest tests/*.py
+python -m pytest tests/
 ```
 
 ---
@@ -215,7 +215,7 @@ These files follow the same format as `static/sample_template.csv`.
 
 Predictions can be generated locally from a Python session without starting the web app:
 
-```bash
+```python
 from load_model_predictions_server import main as run_predictions
 
 predictions = run_predictions(input_csv="examples/example_batch.csv")
@@ -224,7 +224,7 @@ print(predictions)
 
 For a single-system example:
 
-```bash
+```python
 from load_model_predictions_server import main as run_predictions
 
 predictions = run_predictions(input_csv="examples/example_single.csv")
