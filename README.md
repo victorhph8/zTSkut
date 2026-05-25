@@ -154,7 +154,7 @@ On Windows, activate the environment using:
 
 ---
 
-## Running locally
+## Running the web app locally
 
 The app is served with FastAPI and Uvicorn:
 
@@ -167,6 +167,8 @@ Then open:
 ```text
 http://127.0.0.1:8000
 ```
+
+This runs the same FastAPI app locally and does not require Render.
 
 For deployment on Render, the start command is:
 
@@ -186,6 +188,8 @@ From the repository root, run:
 python -m pytest tests/
 ```
 
+A successful run should report all tests as passed.
+
 ---
 
 ## Required model files
@@ -202,7 +206,7 @@ These files define the trained model, the saved feature scaler and the descripto
 
 ---
 
-## Running predictions from example files
+## Running predictions directly from Python
 
 Example input files are provided in the `examples/` folder:
 
