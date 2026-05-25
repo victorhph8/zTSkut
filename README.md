@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/ztskut_logo.png" alt="zTSkut logo" width="220">
+  <img src="static/ztskut_logo.png" alt="zTSkut logo" width="220">
 </p>
 
 <div align="center">

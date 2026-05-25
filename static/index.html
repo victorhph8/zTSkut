@@ -48,6 +48,16 @@
       margin-bottom: 28px;
     }
 
+    .logo-wrap {
+      margin-bottom: 20px;
+    }
+
+    .logo-wrap img {
+      width: min(360px, 100%);
+      height: auto;
+      display: block;
+    }
+
     .hero-card,
     .side-card,
     .card {
@@ -419,8 +429,10 @@
   <main class="page">
     <section class="hero">
       <div class="hero-card">
-        <div class="kicker"><span class="dot"></span> Skutterudite ML model</div>
-        <h1>Predict zT for skutterudite systems</h1>
+          <div class="logo-wrap">
+            <img src="/static/ztskut_logo.png" alt="zTSkut logo">
+          </div>
+
         <p class="subtitle">
           A neural-network model for single and batch prediction of thermoelectric performance in skutterudite-based compositions.
           Empty optional fields are automatically treated as 0.
@@ -584,7 +596,7 @@ n_300,T,p_n,ZT</pre>
     </section>
 
     <footer>
-      Skutterudite zT predictor · Neural-network model for thermoelectric screening
+      zTSkut · Neural-network model for thermoelectric screening
     </footer>
   </main>
 
