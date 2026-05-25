@@ -23,7 +23,7 @@ The app supports both **single-composition prediction** through a browser form a
 
 ## What zTSkut does
 
-zTSkut takes a skutterudite composition as input and predicts its thermoelectric figure of merit (**zT**) using a trained Keras neural-network model.
+zTSkut takes a skutterudite composition as input and predicts its zT using a trained Keras neural-network model.
 
 The prediction workflow is:
 
