@@ -101,17 +101,13 @@ zTSkut extends the impact of that work by converting the published model into an
 
 # Availability and use
 
-The web application is available at <https://ztskut.onrender.com/>. The repository includes a CSV template for batch prediction, citation files, and basic tests for the web endpoint and input validation. The software can also be run locally with Uvicorn using the command:
-
-```bash
-uvicorn main:app --reload
-```
+The web application is available at <https://ztskut.onrender.com/>. The repository provides the source code, trained model files, saved scaler, feature-column definition, CSV template, example inputs, citation files and basic tests for the web endpoint and input validation. Users can access the model either through the deployed web interface or by running the same backend prediction workflow locally using the example CSV files.
 
 zTSkut is intended as a screening and prioritisation tool. Predictions should be interpreted within the chemical and thermoelectric domain represented by the model-development dataset. In particular, predictions for compositions far outside the training chemistry, unusual carrier concentrations or temperatures, systems affected by secondary phases, or very high-zT regimes should be treated with caution and validated experimentally or with higher-fidelity calculations.
 
 # AI usage disclosure
 
-No AI tools were used to assist with the code and web app. All scientific content, software behaviour, tests and final text were reviewed, edited and validated by the authors. The trained model, dataset, scientific interpretation, and research conclusions are based on the peer-reviewed work by Posligua et al. [@posligua2026skutterudites].
+No AI tools were used to assist with the code and web app. All scientific content, software behaviour, tests and final text were reviewed, edited and validated by the authors. The trained model, dataset, scientific interpretation and research conclusions are based on the peer-reviewed work by Posligua et al. [@posligua2026skutterudites].
 
 # Acknowledgements
 
