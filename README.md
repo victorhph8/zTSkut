@@ -57,7 +57,7 @@ zTSkut/
     skutterudite_model.ris
 ```
 
-Optional support files may include:
+Additional repository files:
 
 ```text
 examples/
@@ -210,6 +210,29 @@ Example input files are provided in the `examples/` folder:
 examples/example_single.csv
 examples/example_batch.csv
 ```
+
+These files follow the same format as `static/sample_template.csv`.
+
+Predictions can be generated locally from a Python session without starting the web app:
+
+```bash
+from load_model_predictions_server import main as run_predictions
+
+predictions = run_predictions(input_csv="examples/example_batch.csv")
+print(predictions)
+```
+
+For a single-system example:
+
+```bash
+from load_model_predictions_server import main as run_predictions
+
+predictions = run_predictions(input_csv="examples/example_single.csv")
+print(predictions)
+```
+
+The same backend function is used by the web app, so this local workflow reproduces the deployed prediction pipeline.
+
 ---
 
 ## Error handling
