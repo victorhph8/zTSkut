@@ -202,6 +202,16 @@ These files define the trained model, the saved feature scaler and the descripto
 
 ---
 
+## Running predictions from example files
+
+Example input files are provided in the `examples/` folder:
+
+```text
+examples/example_single.csv
+examples/example_batch.csv
+
+---
+
 ## Error handling
 
 The app checks that numeric fields contain valid numerical values. These include:
