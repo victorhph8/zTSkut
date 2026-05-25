@@ -1,8 +1,10 @@
 <p align="center">
   <img src="assets/ztskut_logo.png" alt="zTSkut logo" width="220">
-
-### A web application for deep learning prediction of thermoelectric performance in skutterudites
 </p>
+
+<div align="center">
+
+### A web application for predicting thermoelectric performance in skutterudites with deep learning
 
 [![Web App](https://img.shields.io/badge/web%20app-live-2ea44f)](https://ztskut.onrender.com/)
 [![Paper](https://img.shields.io/badge/paper-JMCA-blue)](https://pubs.rsc.org/en/content/articlelanding/2026/ta/d5ta08841k)
