@@ -10,7 +10,7 @@ tags:
 authors:
   - name: Victor Posligua
     orcid: 0000-0003-3375-3706
-    affiliation: [1,2]
+    affiliation: "1, 2"
     corresponding: true
   - name: Karina Landivar
     orcid: 0009-0007-0160-1448
@@ -20,16 +20,16 @@ authors:
     affiliation: 1
   - name: Gerda Rogl
     orcid: 0000-0002-8056-5006
-    affiliation: 2
+    affiliation: 3
   - name: Peter F. Rogl
     orcid: 0000-0002-7733-1612
-    affiliation: 2
+    affiliation: 3
   - name: Javier Fdez Sanz
     orcid: 0000-0003-2064-7007
     affiliation: 1
   - name: Jesus Prado-Gonjal
     orcid: 0000-0003-4880-8503
-    affiliation: 3
+    affiliation: 4
   - name: Antonio M. Márquez
     orcid: 0000-0001-6699-064X
     affiliation: 1
