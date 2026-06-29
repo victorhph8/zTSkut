@@ -101,7 +101,7 @@ For batch predictions, users can download the CSV template, add one candidate co
 
 The scientific model served by zTSkut has already been peer reviewed and published in Journal of Materials Chemistry A [@posligua2026skutterudites]. In that study, the model was trained on a curated skutterudite dataset and evaluated using internal validation, independent external testing, comparison with experimental trends and physical interpretation through SHAP analysis and first-principles calculations.
 
-zTSkut extends the impact of that work by converting the published model into an accessible screening tool. This is particularly useful for experimental and computational researchers considering new filled or multi-filled skutterudite compositions, because the software provide rapid first-pass predictions before synthesis or expensive transport calculations. The live web app, documented CSV format, citation files, local execution workflow and test suite make the model easier to reuse beyond the original manuscript and support its integration into future thermoelectric screening workflows.
+zTSkut extends the impact of that work by converting the published model into an accessible screening tool. This is particularly useful for experimental and computational researchers considering new filled or multi-filled skutterudite compositions, because the software provides rapid first-pass predictions before synthesis or expensive transport calculations. The live web app, documented CSV format, citation files, local execution workflow and test suite make the model easier to reuse beyond the original manuscript and support its integration into future thermoelectric screening workflows.
 
 # Availability and use
 
@@ -115,4 +115,6 @@ No AI tools were used to assist with the code and web app. All scientific conten
 
 # Acknowledgements
 
-The authors acknowledge the collaborative work underlying the original skutterudite dataset, model development and validation reported in [@posligua2026skutterudites]. Do we need to add the same acknowledgements like in the main paper?
+The trained model used by zTSkut was developed as part of the skutterudite thermoelectrics study reported in [@posligua2026skutterudites]. This work was funded by grant PID2022-138063OB-I00 funded by MICIU/AEI/10.13039/501100011033 and by FEDER, UE, and by grants TED2021-130874B-I00 and TED2021-129569A-I00 funded by MICIU/AEI/10.13039/501100011033 and by the European Union NextGenerationEU/PRTR.
+
+The authors acknowledge the computer resources at Lusitania (Cenits-COMPUTAEX), Red Española de Supercomputación, RES (QHS-2024-1-0022 and QHS-2024-2-0020), and Albaicín (Centro de Servicios de Informática y Redes de Comunicaciones – CSIRC, Universidad de Granada).
