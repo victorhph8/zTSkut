@@ -10,7 +10,7 @@ tags:
 authors:
   - name: Victor Posligua
     orcid: 0000-0003-3375-3706
-    affiliation: 1,2
+    affiliation: [1,2]
     corresponding: true
   - name: Karina Landivar
     orcid: 0009-0007-0160-1448
