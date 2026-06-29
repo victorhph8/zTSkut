@@ -9,32 +9,32 @@ tags:
   - FastAPI
 authors:
   - name: Victor Posligua
-    orcid: 0000-0003-3375-3706
+    orcid: "0000-0003-3375-3706"
     affiliation: "1, 2"
     corresponding: true
   - name: Karina Landivar
-    orcid: 0009-0007-0160-1448
+    orcid: "0009-0007-0160-1448"
     affiliation: 1
   - name: Elena R. Remesal
-    orcid: 0000-0001-6984-0647
+    orcid: "0000-0001-6984-0647"
     affiliation: 1
   - name: Gerda Rogl
-    orcid: 0000-0002-8056-5006
+    orcid: "0000-0002-8056-5006"
     affiliation: 3
   - name: Peter F. Rogl
-    orcid: 0000-0002-7733-1612
+    orcid: "0000-0002-7733-1612"
     affiliation: 3
   - name: Javier Fdez Sanz
-    orcid: 0000-0003-2064-7007
+    orcid: "0000-0003-2064-7007"
     affiliation: 1
   - name: Jesus Prado-Gonjal
-    orcid: 0000-0003-4880-8503
+    orcid: "0000-0003-4880-8503"
     affiliation: 4
   - name: Antonio M. Márquez
-    orcid: 0000-0001-6699-064X
+    orcid: "0000-0001-6699-064X"
     affiliation: 1
   - name: Jose J. Plata
-    orcid: 0000-0002-0859-0450
+    orcid: "0000-0002-0859-0450"
     affiliation: 1
     corresponding: true
 affiliations:
@@ -65,6 +65,8 @@ zTSkut addresses this need by exposing the trained skutterudite zT model from Po
 # State of the field
 
 Several ML models have been developed for thermoelectric materials, including models trained on broad thermoelectric datasets or on specific material families. However, these models are often published primarily as methodological studies, with limited user-facing software for applying the trained model to new candidate compositions. In practice, reusing such models can require reproducing the original descriptor generation, feature ordering, scaling and loading workflow, which creates a barrier for experimental or computational users who simply want to screen new compositions.
+
+This follows a broader trend in scientific computing, where AI models are increasingly used as surrogates to accelerate exploration of large parameter spaces, provided that predictions remain within the model domain and promising outcomes are verified with higher-fidelity calculations or experiments [@dongarra2026scientific].
 
 General purpose ML platforms and Python libraries such as TensorFlow/Keras [@tensorflow; @keras] and scikit-learn [@scikit-learn] provide the underlying infrastructure for training and deploying models, but they do not provide a domain-specific interface for skutterudite zT prediction. Similarly, web frameworks such as FastAPI [@fastapi] make deployment possible, but they do not encode the thermoelectric descriptor logic, saved model artefacts or input conventions required for this specific skutterudite predictor.
 
