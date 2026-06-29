@@ -10,7 +10,7 @@ tags:
 authors:
   - name: Victor Posligua
     orcid: 0000-0003-3375-3706
-    affiliation: 1
+    affiliation: 1,2
     corresponding: true
   - name: Karina Landivar
     orcid: 0009-0007-0160-1448
@@ -40,11 +40,13 @@ authors:
 affiliations:
   - name: Departamento de Química Física, Facultad de Química, Universidad de Sevilla, Seville, Spain
     index: 1
-  - name: Institute of Materials Chemistry, University of Vienna, Waehringerstraße 42, Wien, Austria
+  - name: Institute for Functional Intelligent Materials, National University of Singapore, 4 Science Drive 2, 117544, Singapore
     index: 2
-  - name: Departamento de Química Inorgánica, Universidad Complutense de Madrid, Madrid, Spain
+  - name: Institute of Materials Chemistry, University of Vienna, Waehringerstraße 42, Wien, Austria
     index: 3
-date: 25 May 2026
+  - name: Departamento de Química Inorgánica, Universidad Complutense de Madrid, Madrid, Spain
+    index: 4
+date: 29 June 2026
 bibliography: paper.bib
 ---
 
