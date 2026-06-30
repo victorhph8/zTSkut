@@ -11,7 +11,7 @@
 [![DOI](https://img.shields.io/badge/DOI-10.1039%2FD5TA08841K-orange)](https://doi.org/10.1039/D5TA08841K)
 [![Python](https://img.shields.io/badge/python-3.12-blue)]()
 [![FastAPI](https://img.shields.io/badge/FastAPI-backend-009688)]()
-[![License](https://img.shields.io/badge/license-MIT-lightgrey)]()
+[![License](https://img.shields.io/badge/license-MIT-lightgrey)](LICENSE)
 
 </div>
 
@@ -297,7 +297,7 @@ The tool is intended to guide candidate selection and screening, not to replace 
 
 ## License
 
-License information will be added before public release.
+This project is released under the MIT License. See the `LICENSE` file for details.
 
 ---
 
