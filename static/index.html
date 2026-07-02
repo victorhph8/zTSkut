@@ -255,6 +255,21 @@
       margin: 0 0 22px;
     }
 
+    .notice {
+      margin: 16px 0 22px;
+      padding: 14px 16px;
+      border: 1px solid rgba(159, 45, 32, 0.22);
+      border-left: 4px solid var(--accent);
+      border-radius: 16px;
+      background: rgba(244, 222, 216, 0.42);
+      color: var(--muted);
+      font-size: 0.94rem;
+    }
+
+    .notice strong {
+      color: var(--accent-dark);
+    }
+
     form {
       margin: 0;
     }
@@ -455,6 +470,11 @@
           A neural-network model for single and batch prediction of thermoelectric performance in skutterudite-based compositions.
           Empty optional fields are automatically treated as 0.
         </p>
+
+        <div class="notice">
+          <strong>Composition note:</strong> Use measured or experimentally determined stoichiometric fractions, not nominal starting or target synthesis fractions. Nominal values may give unreliable predictions.
+        </div>
+
         <div class="hero-links">
           <a href="https://pubs.rsc.org/en/content/articlelanding/2026/ta/d5ta08841k" target="_blank" rel="noopener noreferrer">
             Read the paper
@@ -584,7 +604,7 @@
         <h2>Batch prediction</h2>
         <a class="template-link" href="/static/sample_template.csv" download>Download CSV template</a>
       </div>
-      <p class="hint">Upload a CSV file to predict zT for multiple skutterudite candidates in one run.</p>
+      <p class="hint">Upload a CSV file to predict zT for multiple skutterudite candidates in one run. CSV files should use measured or experimentally determined stoichiometric fractions, not nominal synthesis fractions.</p>
 
       <div class="two-col">
         <div>
