@@ -82,7 +82,9 @@ paper/
 
 Input compositions are provided using separate columns for anion, cation and filler sites.
 
-Important: Composition fractions should correspond to the measured or experimentally determined stoichiometric composition of the material, not the nominal starting or target synthesis composition. For example, if a sample was nominally prepared as Ba0.30Co4Sb12 but chemical analysis gives Ba0.24Co4Sb12, the value entered for the Ba filler fraction should be 0.24, not 0.30. Using nominal fractions can lead to unreliable predictions.
+> **Important:** Composition fractions should correspond to the **measured or experimentally determined stoichiometric composition** of the material, not the nominal starting or target synthesis composition.
+> For example, if a sample was nominally prepared as Ba<sub>0.30</sub>Co<sub>4</sub>Sb<sub>12</sub>, but chemical analysis gives Ba<sub>0.24</sub>Co<sub>4</sub>Sb<sub>12</sub>, the value entered for the Ba filler fraction should be `0.24`, not `0.30`.
+> Using nominal fractions can lead to unreliable predictions.
 
 The required columns are:
 
