@@ -46,7 +46,7 @@ affiliations:
     index: 3
   - name: Departamento de Química Inorgánica, Universidad Complutense de Madrid, Madrid, Spain
     index: 4
-date: 29 June 2026
+date: 3 July 2026
 bibliography: paper.bib
 ---
 
