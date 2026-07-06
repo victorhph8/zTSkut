@@ -1,0 +1,65 @@
+cff-version: 0.2.0
+message: "If you use zTSkut, please cite this software and the associated model-development paper."
+type: software
+title: "zTSkut: A web application for predicting thermoelectric performance in skutterudites with deep learning"
+version: "0.2.0"
+date-released: "2026-07-06"
+license: "MIT"
+repository-code: "https://github.com/victorhph8/zTSkut"
+url: "https://ztskut.onrender.com/"
+
+authors:
+  - family-names: Posligua
+    given-names: Victor
+    orcid: "https://orcid.org/0000-0003-3375-3706"
+  - family-names: Landivar
+    given-names: Karina
+    orcid: "https://orcid.org/0009-0007-0160-1448"
+  - family-names: Remesal
+    given-names: Elena R.
+    orcid: "https://orcid.org/0000-0001-6984-0647"
+  - family-names: Rogl
+    given-names: Gerda
+    orcid: "https://orcid.org/0000-0002-8056-5006"
+  - family-names: Rogl
+    given-names: Peter F.
+    orcid: "https://orcid.org/0000-0002-7733-1612"
+  - family-names: Fdez Sanz
+    given-names: Javier
+    orcid: "https://orcid.org/0000-0003-2064-7007"
+  - family-names: Prado-Gonjal
+    given-names: Jesus
+    orcid: "https://orcid.org/0000-0003-4880-8503"
+  - family-names: Márquez
+    given-names: Antonio M.
+    orcid: "https://orcid.org/0000-0001-6699-064X"
+  - family-names: Plata
+    given-names: Jose J.
+    orcid: "https://orcid.org/0000-0002-0859-0450"
+
+references:
+  - type: article
+    title: "Deep learning prediction of thermoelectric properties in skutterudites"
+    authors:
+      - family-names: Posligua
+        given-names: Victor
+      - family-names: Landivar
+        given-names: Karina
+      - family-names: Remesal
+        given-names: Elena R.
+      - family-names: Rogl
+        given-names: Gerda
+      - family-names: Rogl
+        given-names: Peter F.
+      - family-names: Fdez Sanz
+        given-names: Javier
+      - family-names: Prado-Gonjal
+        given-names: Jesus
+      - family-names: Márquez
+        given-names: Antonio M.
+      - family-names: Plata
+        given-names: Jose J.
+    journal: "Journal of Materials Chemistry A"
+    year: 2026
+    doi: "10.1039/D5TA08841K"
+    url: "https://doi.org/10.1039/D5TA08841K"
