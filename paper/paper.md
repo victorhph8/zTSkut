@@ -14,22 +14,22 @@ authors:
     corresponding: true
   - name: Karina Landivar
     orcid: "0009-0007-0160-1448"
-    affiliation: 1
+    affiliation: "1, 3"
   - name: Elena R. Remesal
     orcid: "0000-0001-6984-0647"
     affiliation: 1
   - name: Gerda Rogl
     orcid: "0000-0002-8056-5006"
-    affiliation: 3
+    affiliation: 4
   - name: Peter F. Rogl
     orcid: "0000-0002-7733-1612"
-    affiliation: 3
+    affiliation: 4
   - name: Javier Fdez Sanz
     orcid: "0000-0003-2064-7007"
     affiliation: 1
   - name: Jesus Prado-Gonjal
     orcid: "0000-0003-4880-8503"
-    affiliation: 4
+    affiliation: 5
   - name: Antonio M. Márquez
     orcid: "0000-0001-6699-064X"
     affiliation: 1
@@ -42,10 +42,12 @@ affiliations:
     index: 1
   - name: Institute for Functional Intelligent Materials, National University of Singapore, 4 Science Drive 2, 117544, Singapore
     index: 2
-  - name: Institute of Materials Chemistry, University of Vienna, Waehringerstraße 42, Wien, Austria
+  - name: Dipartimento di Fisica "Aldo Pontremoli", Università degli Studi di Milano, Via Celoria, 16, I-20133 Milano, Italy
     index: 3
-  - name: Departamento de Química Inorgánica, Universidad Complutense de Madrid, Madrid, Spain
+  - name: Institute of Materials Chemistry, University of Vienna, Waehringerstraße 42, Wien, Austria
     index: 4
+  - name: Departamento de Química Inorgánica, Universidad Complutense de Madrid, Madrid, Spain
+    index: 5
 date: 3 July 2026
 bibliography: paper.bib
 ---
