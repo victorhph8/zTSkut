@@ -148,8 +148,20 @@ Clone the repository and install the dependencies:
 ```bash
 git clone https://github.com/victorhph8/zTSkut.git
 cd zTSkut
+```
+
+> **Python version:** zTSkut has been tested with **Python 3.12**. The dependency versions in `requirements.txt` are pinned for this Python version. Using older Python versions may lead to dependency conflicts, especially for NumPy and Mendeleev.
+
+Create and activate a virtual environment:
+
+```bash
 python -m venv .venv
 source .venv/bin/activate
+```
+
+Install the dependencies:
+
+``` bash
 pip install -r requirements.txt
 ```
 
