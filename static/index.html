@@ -505,7 +505,7 @@
         </div>
         <div class="metric">
           <div class="metric-label">Input modes</div>
-          <div class="metric-value">Single · Batch CSV</div>
+          <div class="metric-value">Single · Batch CSV/JSON/XLSX</div>
         </div>
       </aside>
     </section>
@@ -604,14 +604,14 @@
         <h2>Batch prediction</h2>
         <a class="template-link" href="/static/sample_template.csv" download>Download CSV template</a>
       </div>
-      <p class="hint">Upload a CSV file to predict zT for multiple skutterudite candidates in one run. CSV files should use measured or experimentally determined stoichiometric fractions, not nominal synthesis fractions.</p>
+      <p class="hint">Upload a CSV, JSON, or Excel (.xlsx) file to predict zT for multiple skutterudite candidates in one run. Files should use measured or experimentally determined stoichiometric fractions, not nominal synthesis fractions.</p>
 
       <div class="two-col">
         <div>
           <form id="csvForm">
-            <input type="file" name="file" accept=".csv" required />
+            <input type="file" name="file" accept=".csv,.json,.xlsx" required />
             <div class="actions">
-              <button class="secondary-button" type="submit">Upload CSV and predict</button>
+              <button class="secondary-button" type="submit">Upload file and predict</button>
             </div>
           </form>
 
@@ -619,7 +619,7 @@
         </div>
 
         <div>
-          <p class="notes"><strong>CSV header format</strong></p>
+          <p class="notes"><strong>Required field format</strong></p>
           <pre class="code-block">a_comp_1,a_frac_1,a_comp_2,a_frac_2,a_comp_3,a_frac_3,
 c_comp_1,c_frac_1,c_comp_2,c_frac_2,c_comp_3,c_frac_3,
 f_comp_1,f_frac_1,f_comp_2,f_frac_2,f_comp_3,f_frac_3,
@@ -627,7 +627,7 @@ f_comp_4,f_frac_4,f_comp_5,f_frac_5,
 n_300,T,p_n,ZT</pre>
 
           <p class="notes">
-            <code>p_n</code>: 0 = p-type, 1 = n-type. <code>ZT</code> is a dummy column required for input formatting and is ignored by the model.
+            <code>p_n</code>: 0 = p-type, 1 = n-type. <code>ZT</code> is a dummy field required for input formatting and is ignored by the model.
           </p>
         </div>
       </div>
