@@ -17,7 +17,7 @@
 
 zTSkut is a web application for predicting the thermoelectric figure of merit (zT) of skutterudite-based compositions using the neural-network model reported in our Journal of Materials Chemistry A paper.
 
-The app supports both **single-composition prediction** through a browser form and **batch prediction** from CSV files, making the model accessible for rapid screening of candidate skutterudite materials.
+The app supports both **single-composition prediction** through a browser form and **batch prediction** from CSV, JSON and Excel `.xlsx` files, making the model accessible for rapid screening of candidate skutterudite materials.
 
 **Links:** [Web app](https://ztskut.onrender.com/) | [Paper](https://pubs.rsc.org/en/content/articlelanding/2026/ta/d5ta08841k) | [Citation](#citation)
 
@@ -119,6 +119,10 @@ A batch template is provided in:
 static/sample_template.csv
 ```
 
+Batch uploads can be provided as CSV, JSON, or Excel `.xlsx` files. All formats must use the same field names as the CSV template.
+
+JSON inputs should be provided either as a list of records or as an object containing a `systems` list. Excel `.xlsx` inputs should contain the same columns as the CSV template in the first worksheet.
+
 ---
 
 ## Web app usage
@@ -134,9 +138,9 @@ The predicted zT value will appear directly on the page.
 
 ### Batch prediction
 
-1. Download the CSV template from the web app.
-2. Add one candidate system per row.
-3. Upload the completed CSV file.
+1. Download the CSV template from the web app or prepare an equivalent JSON or Excel `.xlsx` file using the same fields.
+2. Add one candidate system per row or record.
+3. Upload the completed CSV, JSON or Excel `.xlsx` file.
 4. The app returns one predicted zT value per system.
 
 ---
@@ -199,7 +203,7 @@ uvicorn main:app --host 0.0.0.0 --port $PORT
 
 ## Running tests
 
-Basic tests are provided to check that the web app loads correctly, the prediction endpoint works with a valid CSV file and invalid numerical inputs are handled properly.
+Basic tests are provided to check that the web app loads correctly, the prediction endpoint works with valid CSV, JSON and Excel `.xlsx` files and invalid numerical inputs are handled properly.
 
 From the repository root, run:
 
@@ -234,7 +238,7 @@ examples/example_single.csv
 examples/example_batch.csv
 ```
 
-These files follow the same format as `static/sample_template.csv`.
+These files follow the same format as `static/sample_template.csv`. The direct Python prediction function expects CSV input. JSON and Excel `.xlsx` support is provided by the web upload endpoint, where these formats are converted internally to the same CSV-style table before prediction.
 
 Predictions can be generated locally from a Python session without starting the web app:
 
