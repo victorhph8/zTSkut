@@ -616,6 +616,16 @@
           </form>
 
           <pre id="csv-result" class="result">Batch prediction results will appear here.</pre>
+
+          <p id="download-note" class="notes" style="display: none;">
+            Downloaded files include the uploaded table with an added <code>predicted_ZT</code> column.
+          </p>
+
+          <div id="download-actions" class="actions" style="display: none;">
+            <button type="button" class="template-link" id="download-csv">Download CSV results</button>
+            <button type="button" class="template-link" id="download-json">Download JSON results</button>
+            <button type="button" class="template-link" id="download-xlsx">Download XLSX results</button>
+          </div>
         </div>
 
         <div>
@@ -691,6 +701,65 @@ n_300,T,p_n,ZT</pre>
       }
     });
 
+    let latestDownloads = null;
+
+    function downloadBlob(filename, blob) {
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+
+      link.href = url;
+      link.download = filename;
+      document.body.appendChild(link);
+      link.click();
+
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+    }
+
+    function downloadTextFile(filename, text, mimeType) {
+      const blob = new Blob([text], { type: mimeType });
+      downloadBlob(filename, blob);
+    }
+
+    function base64ToBlob(base64, mimeType) {
+      const byteCharacters = atob(base64);
+      const byteNumbers = Array.from(byteCharacters, char => char.charCodeAt(0));
+      const byteArray = new Uint8Array(byteNumbers);
+
+      return new Blob([byteArray], { type: mimeType });
+    }
+
+    document.getElementById('download-csv').addEventListener('click', () => {
+      if (!latestDownloads) return;
+
+      downloadTextFile(
+        'ztskut_predictions.csv',
+        latestDownloads.csv,
+        'text/csv'
+      );
+    });
+
+    document.getElementById('download-json').addEventListener('click', () => {
+      if (!latestDownloads) return;
+
+      downloadTextFile(
+        'ztskut_predictions.json',
+        latestDownloads.json,
+        'application/json'
+      );
+    });
+
+    document.getElementById('download-xlsx').addEventListener('click', () => {
+      if (!latestDownloads) return;
+
+      const blob = base64ToBlob(
+        latestDownloads.xlsx_base64,
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+      );
+
+      downloadBlob('ztskut_predictions.xlsx', blob);
+    });
+
     document.getElementById('csvForm').addEventListener('submit', async function(e) {
       e.preventDefault();
 
@@ -701,6 +770,10 @@ n_300,T,p_n,ZT</pre>
       formData.append('file', file);
 
       const resultBox = document.getElementById('csv-result');
+      const downloadActions = document.getElementById('download-actions');
+
+      latestDownloads = null;
+      downloadActions.style.display = 'none';
       resultBox.textContent = "⏳ Predicting zT values... Please wait.";
 
       try {
@@ -720,7 +793,14 @@ n_300,T,p_n,ZT</pre>
           `Predicted zT values for ${result.predictions.length} system(s):\n` +
           result.predictions.map((z, i) => `System ${i + 1}: ${z.toFixed(4)}`).join('\n');
 
+        if (result.downloads) {
+          latestDownloads = result.downloads;
+          downloadActions.style.display = 'flex';
+        }
+
       } catch (err) {
+        latestDownloads = null;
+        downloadActions.style.display = 'none';
         resultBox.textContent = "⚠️ Error during prediction.";
       }
     });

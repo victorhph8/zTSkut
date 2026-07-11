@@ -9,6 +9,7 @@ import io
 import json
 import pandas as pd
 import traceback
+import base64
 
 app = FastAPI()
 
@@ -20,46 +21,66 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 def serve_index():
     return FileResponse("static/index.html")
 
-def save_upload_as_csv(contents: bytes, suffix: str) -> str:
-    """Convert an uploaded CSV, JSON, or XLSX file to a temporary CSV file"""
+def read_upload_as_dataframe(contents: bytes, suffix: str) -> pd.DataFrame:
+    """Read an uploaded CSV, JSON, or XLSX file into a pandas DataFrame."""
+    if suffix == ".csv":
+        df = pd.read_csv(io.BytesIO(contents))
+
+    elif suffix == ".json":
+        data = json.loads(contents.decode("utf-8"))
+
+        # Accept either a direct list of records, a single record, or {"systems": [...]} - This worked last time, hope it still does :)
+        if isinstance(data, dict) and "systems" in data:
+            data = data["systems"]
+        elif isinstance(data, dict):
+            data = [data]
+
+        if not isinstance(data, list):
+            raise ValueError(
+                "JSON input must be a list of records, a single record, or an object with a 'systems' list."
+            )
+
+        df = pd.DataFrame(data)
+
+    elif suffix == ".xlsx":
+        df = pd.read_excel(io.BytesIO(contents), engine="openpyxl")
+
+    else:
+        raise ValueError("Unsupported input format. Please use CSV, JSON, or Excel .xlsx.")
+
+    if df.empty:
+        raise ValueError("Uploaded file does not contain any systems to predict.")
+
+    return df
+
+def dataframe_to_temp_csv(df: pd.DataFrame) -> str:
+    """Write a dataframe to a temporary CSV file for the existing prediction pipeline"""
     fd, tmp_csv_path = tempfile.mkstemp(suffix=".csv")
     os.close(fd)
 
     try:
-        if suffix == ".csv":
-            with open(tmp_csv_path, "wb") as tmp_csv:
-                tmp_csv.write(contents)
-
-        elif suffix == ".json":
-            data = json.loads(contents.decode("utf-8"))
-
-            # Accept either a direct list of records or {"systems": [...]} - This should work now :/
-            if isinstance(data, dict) and "systems" in data:
-                data = data["systems"]
-            elif isinstance(data, dict):
-                data = [data]
-
-            if not isinstance(data, list):
-                raise ValueError(
-                    "JSON input must be a list of records, a single record or an object with a 'systems' list"
-                )
-
-            df = pd.DataFrame(data)
-            df.to_csv(tmp_csv_path, index=False)
-
-        elif suffix == ".xlsx":
-            df = pd.read_excel(io.BytesIO(contents), engine="openpyxl")
-            df.to_csv(tmp_csv_path, index=False)
-
-        else:
-            raise ValueError("Unsupported input format. Please use CSV, JSON or Excel .xlsx")
-
+        df.to_csv(tmp_csv_path, index=False)
         return tmp_csv_path
 
     except Exception:
         if os.path.exists(tmp_csv_path):
             os.remove(tmp_csv_path)
         raise
+    
+def build_download_payload(output_df: pd.DataFrame) -> dict:
+    """Create downloadable CSV, JSON and XLSX versions of the prediction table"""
+    csv_text = output_df.to_csv(index=False)
+    json_text = output_df.to_json(orient="records", indent=2)
+
+    xlsx_buffer = io.BytesIO()
+    output_df.to_excel(xlsx_buffer, index=False, engine="openpyxl")
+    xlsx_base64 = base64.b64encode(xlsx_buffer.getvalue()).decode("utf-8")
+
+    return {
+        "csv": csv_text,
+        "json": json_text,
+        "xlsx_base64": xlsx_base64
+    }
 
 # Prediction endpoint
 @app.post("/predict")
@@ -79,10 +100,24 @@ async def predict(file: UploadFile = File(...)):
 
     try:
         contents = await file.read()
-        tmp_csv_path = save_upload_as_csv(contents, suffix)
+        
+        input_df = read_upload_as_dataframe(contents, suffix)
+        tmp_csv_path = dataframe_to_temp_csv(input_df)
 
         preds = run_predictions(input_csv=tmp_csv_path)
-        return {"predictions": preds, "n_predictions": len(preds)}
+        
+        if len(preds) != len(input_df):
+            raise RuntimeError(
+                "The number of predictions does not match the number of uploaded systems."
+            )
+
+        output_df = input_df.copy()
+        output_df["predicted_ZT"] = preds
+
+        results = json.loads(output_df.to_json(orient="records"))
+        downloads = build_download_payload(output_df)
+        
+        return {"predictions": preds, "n_predictions": len(preds), "results": results, "downloads": downloads}
     
     except ValueError as exc:
         raise HTTPException(status_code=400, detail=str(exc))
