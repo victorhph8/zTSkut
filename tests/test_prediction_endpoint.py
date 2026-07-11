@@ -2,6 +2,8 @@ from pathlib import Path
 import sys
 import io
 import pandas as pd
+import json
+import base64
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
@@ -32,10 +34,38 @@ def valid_input_dataframe():
     
 def assert_valid_prediction_response(response):
     assert response.status_code == 200
+    
     data = response.json()
+    
     assert "predictions" in data
     assert len(data["predictions"]) == 1
     assert isinstance(data["predictions"][0], float)
+    
+    assert "n_predictions" in data
+    assert data["n_predictions"] == 1
+
+    assert "results" in data
+    assert len(data["results"]) == 1
+    assert "predicted_ZT" in data["results"][0]
+    assert isinstance(data["results"][0]["predicted_ZT"], float)
+
+    assert "downloads" in data
+    assert "csv" in data["downloads"]
+    assert "json" in data["downloads"]
+    assert "xlsx_base64" in data["downloads"]
+
+    csv_df = pd.read_csv(io.StringIO(data["downloads"]["csv"]))
+    assert "predicted_ZT" in csv_df.columns
+    assert len(csv_df) == 1
+
+    json_records = json.loads(data["downloads"]["json"])
+    assert len(json_records) == 1
+    assert "predicted_ZT" in json_records[0]
+
+    xlsx_bytes = base64.b64decode(data["downloads"]["xlsx_base64"])
+    xlsx_df = pd.read_excel(io.BytesIO(xlsx_bytes), engine="openpyxl")
+    assert "predicted_ZT" in xlsx_df.columns
+    assert len(xlsx_df) == 1
 
 def test_predict_endpoint_with_valid_csv():
     df = valid_input_dataframe()

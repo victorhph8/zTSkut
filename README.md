@@ -17,7 +17,7 @@
 
 zTSkut is a web application for predicting the thermoelectric figure of merit (zT) of skutterudite-based compositions using the neural-network model reported in our Journal of Materials Chemistry A paper.
 
-The app supports both **single-composition prediction** through a browser form and **batch prediction** from CSV, JSON and Excel `.xlsx` files, making the model accessible for rapid screening of candidate skutterudite materials.
+The app supports both **single-composition prediction** through a browser form and **batch prediction** from CSV, JSON and Excel `.xlsx` files. Batch prediction results can also be downloaded as CSV, JSON or Excel `.xlsx` files, making the model accessible for rapid screening and downstream analysis of candidate skutterudite materials.
 
 **Links:** [Web app](https://ztskut.onrender.com/) | [Paper](https://pubs.rsc.org/en/content/articlelanding/2026/ta/d5ta08841k) | [Citation](#citation)
 
@@ -142,6 +142,9 @@ The predicted zT value will appear directly on the page.
 2. Add one candidate system per row or record.
 3. Upload the completed CSV, JSON or Excel `.xlsx` file.
 4. The app returns one predicted zT value per system.
+5. Download the full prediction table as CSV, JSON, or Excel `.xlsx`.
+
+The downloadable result table preserves the uploaded input fields and adds a new `predicted_ZT` column. The original `ZT` input column is not overwritten and remains ignored by the model during prediction.
 
 ---
 
@@ -203,7 +206,7 @@ uvicorn main:app --host 0.0.0.0 --port $PORT
 
 ## Running tests
 
-Basic tests are provided to check that the web app loads correctly, the prediction endpoint works with valid CSV, JSON and Excel `.xlsx` files and invalid numerical inputs are handled properly.
+Basic tests are provided to check that the web app loads correctly, the prediction endpoint works with valid CSV, JSON and Excel `.xlsx` files, downloadable batch results are returned correctly and invalid numerical inputs are handled properly.
 
 From the repository root, run:
 
