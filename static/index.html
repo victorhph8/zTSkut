@@ -205,6 +205,29 @@
       min-height: 220px;
     }
 
+    .side-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+      height: 100%;
+    }
+
+    .intro-card {
+      min-height: 0;
+      justify-content: flex-start;
+      gap: 10px;
+    }
+
+    .intro-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .metrics-card {
+      flex: 1;
+    }
+
     .metric {
       border-top: 1px solid var(--line);
       padding-top: 16px;
@@ -494,18 +517,29 @@
         </div>
       </div>
 
-      <aside class="side-card">
-        <div class="metric">
-          <div class="metric-label">Validation</div>
-          <div class="metric-value">RMSE 0.068 · R² 0.947</div>
+      <aside class="side-stack">
+        <div class="side-card intro-card">
+          <div>
+            <div class="metric-label">What is this?</div>
+            <p>
+              Thermoelectric materials convert heat into electricity. <em>zTSkut</em> estimates the thermoelectric efficiency (<em>zT</em>) of skutterudite materials from composition, carrier concentration, temperature and carrier type.
+            </p>
+          </div>
         </div>
-        <div class="metric">
-          <div class="metric-label">External test</div>
-          <div class="metric-value">RMSE 0.156 · R² 0.836</div>
-        </div>
-        <div class="metric">
-          <div class="metric-label">Input modes</div>
-          <div class="metric-value">Single · Batch CSV/JSON/XLSX</div>
+
+        <div class="side-card metrics-card">
+          <div class="metric">
+            <div class="metric-label">Validation</div>
+            <div class="metric-value">RMSE 0.068 · R² 0.947</div>
+          </div>
+          <div class="metric">
+            <div class="metric-label">External test</div>
+            <div class="metric-value">RMSE 0.156 · R² 0.836</div>
+          </div>
+          <div class="metric">
+            <div class="metric-label">Input modes</div>
+            <div class="metric-value">Single · Batch CSV/JSON/XLSX</div>
+          </div>
         </div>
       </aside>
     </section>
@@ -604,7 +638,7 @@
         <h2>Batch prediction</h2>
         <a class="template-link" href="/static/sample_template.csv" download>Download CSV template</a>
       </div>
-      <p class="hint">Upload a CSV, JSON, or Excel (.xlsx) file to predict zT for multiple skutterudite candidates in one run. Files should use measured or experimentally determined stoichiometric fractions, not nominal synthesis fractions.</p>
+      <p class="hint">Upload a CSV, JSON or Excel (.xlsx) file to predict zT for multiple skutterudite candidates in one run. Files should use measured or experimentally determined stoichiometric fractions, not nominal synthesis fractions.</p>
 
       <div class="two-col">
         <div>

@@ -48,13 +48,13 @@ affiliations:
     index: 4
   - name: Departamento de Química Inorgánica, Universidad Complutense de Madrid, Madrid, Spain
     index: 5
-date: 3 July 2026
+date: 13 July 2026
 bibliography: paper.bib
 ---
 
 # Summary
 
-zTSkut is a Python-based web application for predicting the thermoelectric figure of merit, zT, of skutterudite-based compositions. The software provides both a browser interface for single-composition prediction and a CSV-upload workflow for batch screening. Users specify the anion, cation and filler species, their corresponding fractions, carrier concentration at 300 K, temperature and carrier type. zTSkut then generates the same compositional descriptors used by the trained neural-network model, applies the saved feature scaling from the original training workflow and returns predicted zT values.
+zTSkut is a Python-based web application for predicting the thermoelectric figure of merit, zT, of skutterudite-based compositions. The software provides both a browser interface for single-composition prediction and a batch-screening workflow based on CSV, JSON or Excel `.xlsx` input files. Users specify the anion, cation and filler species, their corresponding fractions, carrier concentration at 300 K, temperature and carrier type. zTSkut then generates the same compositional descriptors used by the trained neural-network model, applies the saved feature scaling from the original training workflow and returns predicted zT values. For batch predictions, users can download the input table augments with a `predicted_ZT` column in CSV, JSON or Excel `.xlsx` format.
 
 The backend generates the compositional descriptors required by the trained neural-network model, orders them according to the original feature list, applies the saved `StandardScaler` from the training workflow, and returns predicted zT values. This ensures that user predictions follow the same preprocessing pathway as the published model-development study. zTSkut is built with a FastAPI backend and a lightweight HTML/CSS/JavaScript frontend, and includes input validation to catch common formatting errors.
 
@@ -78,9 +78,9 @@ zTSkut therefore fills a focused gap: it packages the trained skutterudite model
 
 The main design goal of zTSkut is to make the trained skutterudite zT model accessible while preserving the exact preprocessing workflow used during model development. For this reason, the software separates the user interface from the prediction pipeline but keeps the deployment structure simple enough to run locally or on a lightweight web service.
 
-The backend is implemented with FastAPI, with both the single-system form and the batch CSV upload passing through the same prediction workflow. The prediction script reads the input, validates numerical fields, replaces empty optional fields with zero and generates the compositional descriptors required by the trained model. Descriptor generation uses RDKit [@rdkit2024] to parse element-level chemical inputs and obtain valence-electron descriptors, while Mendeleev [@mendeleev2014] and Pymatgen [@pymatgen2013] provide elemental properties, including atomic masses as well as ionisation-energy, electron-affinity and electronegativity values. The resulting descriptor table is ordered according to `feature_columns_ZT.txt`, transformed with `scaler_ZT.joblib`, which stores the feature-scaling parameters fitted during model training, and finally evaluated with the trained `model_keras_skutt.h5` model. The same end-to-end prediction workflow is summarised in **Figure 1**.
+The backend is implemented with FastAPI, with both the single-system form and the batch uploads passing through the same prediction workflow. Batch inputs can be provided as CSV, JSON or Excel `.xlsx` files; JSON and Excel inputs are converted internally to the same CSV-style table before descriptor generation and prediction. The prediction script reads the input, validates numerical fields, replaces empty optional fields with zero and generates the compositional descriptors required by the trained model. Descriptor generation uses RDKit [@rdkit2024] to parse element-level chemical inputs and obtain valence-electron descriptors, while Mendeleev [@mendeleev2014] and Pymatgen [@pymatgen2013] provide elemental properties, including atomic masses as well as ionisation-energy, electron-affinity and electronegativity values. The resulting descriptor table is ordered according to `feature_columns_ZT.txt`, transformed with `scaler_ZT.joblib`, which stores the feature-scaling parameters fitted during model training, and finally evaluated with the trained `model_keras_skutt.h5` model. The same end-to-end prediction workflow is summarised in **Figure 1**.
 
-![zTSkut prediction workflow. Single-composition and batch CSV inputs are processed through the same backend pipeline, including input validation, descriptor generation with RDKit, Mendeleev and Pymatgen, feature alignment using `feature_columns_ZT.txt`, scaling with `scaler_ZT.joblib` and prediction with the trained TensorFlow/Keras model.](figures/ztskut_workflow.png)
+![zTSkut prediction workflow. Single-composition inputs and batch CSV, JSON or Excel `.xlsx` inputs are processed through the same backend pipeline, including input validation, descriptor generation with RDKit, Mendeleev and Pymatgen, feature alignment using `feature_columns_ZT.txt`, scaling with `scaler_ZT.joblib` and prediction with the trained TensorFlow/Keras model.](figures/ztskut_workflow.png)
 
 A deliberate trade-off was made to keep the software lightweight and transparent rather than building a more complex package architecture. The current implementation uses a small number of files so that it can be deployed easily on Render and run locally with a single Uvicorn command. This is important for the intended audience: researchers who want to use the model for candidate screening should not need to install a large framework or understand the full training workflow. At the same time, the repository includes tests for basic web app functionality, prediction through the backend endpoint and input validation, so that reviewers and users can verify that the core workflow is functioning.
 
@@ -91,7 +91,9 @@ The frontend is implemented as a lightweight HTML/CSS/JavaScript interface witho
 The current implementation provides the following functionality:
 
 - Single-system prediction through a browser form
-- Batch prediction from CSV files
+- Batch prediction from CSV, JSON and Excel `.xlsx` files
+- Downloadable batch prediction results in CSV, JSON, and Excel `.xlsx` formats
+- Preservation of uploaded input fields in batch outputs, with predictions added as a new `predicted_ZT` column
 - Automatic treatment of empty optional composition and fraction fields as zero
 - Generation of the compositional descriptor set expected by the trained model
 - Application of the saved training scaler and fixed feature order
@@ -99,17 +101,17 @@ The current implementation provides the following functionality:
 - Downloadable citation files for users of the model
 - Local execution through FastAPI as well as deployment as a web app
 
-For batch predictions, users can download the CSV template, add one candidate composition per row and upload the completed file. The app returns one predicted zT value per row.
+For batch predictions, users can download the CSV template, add one candidate composition per row or record and upload the completed file as CSV, JSON or Excel `.xlsx`. The app returns one predicted zT value per system and provides downloadable result files in which the original input fields are preserved and the prediction is added as `predicted_ZT`.
 
 # Research impact statement
 
 The scientific model served by zTSkut has already been peer reviewed and published in Journal of Materials Chemistry A [@posligua2026skutterudites]. In that study, the model was trained on a curated skutterudite dataset and evaluated using internal validation, independent external testing, comparison with experimental trends and physical interpretation through SHAP analysis and first-principles calculations.
 
-zTSkut extends the impact of that work by converting the published model into an accessible screening tool. This is particularly useful for experimental and computational researchers considering new filled or multi-filled skutterudite compositions, because the software provides rapid first-pass predictions before synthesis or expensive transport calculations. The live web app, documented CSV format, citation files, local execution workflow and test suite make the model easier to reuse beyond the original manuscript and support its integration into future thermoelectric screening workflows.
+zTSkut extends the impact of that work by converting the published model into an accessible screening tool. This is particularly useful for experimental and computational researchers considering new filled or multi-filled skutterudite compositions, because the software provides rapid first-pass predictions before synthesis or expensive transport calculations. The live web app, documented CSV/JSON/Excel input formats, downloadable result files, citation files, local execution workflow and test suite make the model easier to reuse beyond the original manuscript and support its integration into future thermoelectric screening workflows.
 
 # Availability and use
 
-The web application is available at <https://ztskut.onrender.com/>. The repository provides the source code, trained model files, saved scaler, feature-column definition, CSV template, example inputs, citation files and basic tests for the web endpoint and input validation. Users can access the model either through the deployed web interface or by running the same backend prediction workflow locally using the example CSV files.
+The web application is available at <https://ztskut.onrender.com/>. The repository provides the source code, trained model files, saved scaler, feature-column definition, CSV template, example inputs, citation files and tests for the web endpoint, supported upload formats, downloadable batch outputs and input validation. Users can access the model either through the deployed web interface or by running the same backend prediction workflow locally using the example CSV files.
 
 zTSkut is intended as a screening and prioritisation tool. Predictions should be interpreted within the chemical and thermoelectric domain represented by the model-development dataset. In particular, predictions for compositions far outside the training chemistry, unusual carrier concentrations or temperatures, systems affected by secondary phases, or very high-zT regimes should be treated with caution and validated experimentally or with higher-fidelity calculations.
 

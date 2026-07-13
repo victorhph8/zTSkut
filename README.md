@@ -182,25 +182,27 @@ On Windows, activate the environment using:
 
 ## Running the web app locally
 
-The app is served with FastAPI and Uvicorn:
+The app is served with FastAPI and Uvicorn. After installing the dependencies from `requirements.txt`, the FastAPI web app can be run locally from the repository root:
 
 ```bash
-uvicorn main:app --reload
+python -m uvicorn main:app --reload
 ```
 
-Then open:
+Then open the local app in a browser:
 
 ```text
 http://127.0.0.1:8000
 ```
 
-This runs the same FastAPI app locally and does not require Render.
+The `--reload` option is useful during development because the server restarts automatically when files are edited.
 
-For deployment on Render, the start command is:
+If the command fails with `No module named uvicorn`, make sure the virtual environment is activated and that the dependencies were installed correctly:
 
 ```bash
-uvicorn main:app --host 0.0.0.0 --port $PORT
+pip install -r requirements.txt
 ```
+
+This runs the same FastAPI app locally and does not require Render.
 
 ---
 
