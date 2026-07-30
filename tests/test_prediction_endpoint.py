@@ -89,6 +89,24 @@ def test_predict_endpoint_with_valid_json():
 
     assert_valid_prediction_response(response)
     
+def test_predict_endpoint_with_wrapped_json():
+    df = valid_input_dataframe()
+    records = json.loads(df.to_json(orient="records"))
+    json_content = json.dumps({"systems": records})
+
+    response = client.post(
+        "/predict",
+        files={
+            "file": (
+                "test_wrapped.json",
+                json_content.encode("utf-8"),
+                "application/json"
+            )
+        }
+    )
+
+    assert_valid_prediction_response(response)
+    
 def test_predict_endpoint_with_valid_xlsx():
     df = valid_input_dataframe()
 
