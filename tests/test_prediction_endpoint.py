@@ -136,3 +136,38 @@ def test_predict_endpoint_rejects_unsupported_file_format():
 
     assert response.status_code == 400
     assert "CSV, JSON or Excel .xlsx" in response.json()["detail"]
+
+
+def test_prediction_does_not_create_shared_intermediate_files(monkeypatch):
+    monkeypatch.chdir(ROOT)
+
+    shared_files = [
+        ROOT / "unique_descriptors_elements.csv",
+        ROOT / "raw_descriptors-Phase_1_ZT.csv",
+    ]
+
+    for path in shared_files:
+        path.unlink(missing_ok=True)
+
+    df = valid_input_dataframe()
+    csv_content = df.to_csv(index=False)
+
+    try:
+        response = client.post(
+            "/predict",
+            files={
+                "file": (
+                    "test.csv",
+                    csv_content.encode("utf-8"),
+                    "text/csv"
+                )
+            }
+        )
+
+        assert_valid_prediction_response(response)
+
+        for path in shared_files:
+            assert not path.exists()
+    finally:
+        for path in shared_files:
+            path.unlink(missing_ok=True)
