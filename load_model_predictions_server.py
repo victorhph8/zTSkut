@@ -239,7 +239,6 @@ def main(input_csv="samples_file.csv"):
         unique_descriptors_series.name = 'descriptors' # Changing name of series (different commands to change columns' names in a Pandas dataframe) 
         unique_atoms_descriptors_df = pd.concat([unique_atoms_df, unique_descriptors_series], axis=1) # Creating a unique dataframe with all descriptors (like a dictionary)
         ic(unique_atoms_descriptors_df)
-        unique_atoms_descriptors_df.to_csv('unique_descriptors_elements.csv', index=False)
 
         # Use def 'load_unique_descriptors' to only copy descriptors for each element
         for column in tqdm(list_comp): # type: ignore
@@ -308,14 +307,14 @@ def main(input_csv="samples_file.csv"):
         # Update list of descriptors (nested queries removed, actually it's a copy of columns' names of final_extract dataframe ;) )
         updated_queries_descriptors = list(final_extract_descriptors_2.columns)
         ic(updated_queries_descriptors)
-        # Checkpoint!! - Create csv file with raw descriptors
-        final_extract_descriptors_2.to_csv(f'raw_descriptors-Phase_1_{raw_label}.csv', index=False)
+        # Checkpoint!! - Create csv file with raw descriptors (Not anymore in this new version :) - in-memory processing)
+        # Reproduce the numeric conversion previously performed by pd.read_csv
+        df = final_extract_descriptors_2.apply(pd.to_numeric, errors="raise")
 
         ###################################################################
         #### Feature Engineering - Descriptors from csv file - PHASE 2 ####
         ###################################################################
         print(f'   ++ Calculating new descriptors per each composition...')
-        df = pd.read_csv(f'raw_descriptors-Phase_1_{raw_label}.csv')
 
         #Columns
         a_elecneg_cols = ['a_comp_1_elecneg', 'a_comp_2_elecneg', 'a_comp_3_elecneg']
