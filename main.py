@@ -21,6 +21,11 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 def serve_index():
     return FileResponse("static/index.html")
 
+# Serve crawler instructions at the root URL
+@app.get("/robots.txt", include_in_schema=False)
+def serve_robots():
+    return FileResponse("static/robots.txt", media_type="text/plain")
+
 def read_upload_as_dataframe(contents: bytes, suffix: str) -> pd.DataFrame:
     """Read an uploaded CSV, JSON, or XLSX file into a pandas DataFrame."""
     if suffix == ".csv":
