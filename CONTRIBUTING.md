@@ -46,4 +46,6 @@ Please also update or add tests when changing behaviour.
 
 ## Support expectations
 
+For questions about installation, usage or unexpected behaviour, please open a GitHub issue.
+
 This is academic research software maintained on a best-effort basis. Issues and contributions will be reviewed when time allows.
