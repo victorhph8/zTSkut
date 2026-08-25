@@ -582,9 +582,9 @@ def main(input_csv="samples_file.csv"):
         target = target_col
         dataset = df_descriptors_phase2.copy()
         features = dataset.drop(target, axis=1)
-        features['n_300'].fillna(0, inplace=True) # Replace NaN with zeros - New in this v5, didn't think about this until latest test sets 
-        features['std_dev_f_mass'].fillna(0, inplace=True)
-        features['std_dev_f_frac'].fillna(0, inplace=True)
+        features['n_300'] = features['n_300'].fillna(0)
+        features['std_dev_f_mass'] = features['std_dev_f_mass'].fillna(0)
+        features['std_dev_f_frac'] = features['std_dev_f_frac'].fillna(0)
         ic(features.columns)
         label = dataset[target]
 
