@@ -4,7 +4,7 @@ python-multipart==0.0.20
 tensorflow==2.18.0
 pandas==2.2.3
 numpy==2.0.2
-scikit-learn==1.6.0
+scikit-learn==1.5.1
 joblib==1.4.2
 rdkit==2024.9.4
 mendeleev==0.20.1
